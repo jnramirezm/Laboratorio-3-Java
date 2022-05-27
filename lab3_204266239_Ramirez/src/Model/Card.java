@@ -1,15 +1,33 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class Card {
-    private Integer numE;
+    private ArrayList<String> num;
 
-
-    public Integer getNumE() {
-        return numE;
+    public Card(ArrayList<String> num){
+        this.num = num;
     }
 
-    public void setNumE(Integer numE) {
-        this.numE = numE;
+    public ArrayList<String> getNum() {
+        return num;
     }
 
+    public void setNum(ArrayList<String> num) {
+        this.num = num;
+    }
+
+    @Override
+    public String toString() {
+        return "" +
+                num
+                ;
+    }
+    public Integer size(){
+        return num.size();
+    }
+
+    public String get(Integer n){
+        return num.get(n);
+    }
 }
