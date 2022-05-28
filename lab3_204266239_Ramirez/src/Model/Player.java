@@ -5,13 +5,13 @@ public class Player {
     private String name;
     private Integer turn;
     private Integer score;
-    private ArrayList<Card> cards;
+    private Dobble cards;
 
     public Player(String name){
         this.name = name;
         this.turn = 0;
         this.score = 0;
-        this.cards = new ArrayList<>();
+        this.cards = new Dobble();
     }
 
     public String getName() {
@@ -38,11 +38,11 @@ public class Player {
         this.score = score;
     }
 
-    public ArrayList<Card> getCards() {
+    public Dobble getCards() {
         return cards;
     }
 
-    public void setCards(ArrayList<Card> cards) {
+    public void setCards(Dobble cards) {
         this.cards = cards;
     }
 

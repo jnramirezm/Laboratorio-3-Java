@@ -8,6 +8,10 @@ public class Dobble {
     private ArrayList<String> card;
     private Integer numE;
 
+    public Dobble(){
+        this.deck = new ArrayList<>();
+    }
+
     public Dobble(ArrayList<Card> deck){
         this.deck = deck;
     }
@@ -70,12 +74,26 @@ public class Dobble {
         this.numE = numE;
     }
 
+    public Card get(Integer n){
+        return deck.get(n);
+    }
+
+    public Integer size(){
+        return deck.size();
+    }
+
+    public void anadir(Card carta){
+        deck.add(carta);
+    }
+
     @Override
     public String toString() {
         return
                 "deck=" + deck
                 ;
     }
+
+
 
     public Boolean isDobble(){
         for(int i = 0; i < deck.size()-1; i++) {
@@ -99,8 +117,6 @@ public class Dobble {
                            cont = cont + 1;
                        }
                        if(cont > 1){
-                           System.out.println(deck.get(i));
-                           System.out.println(deck.get(k));
                            return false;
                        }
                    }
@@ -109,6 +125,28 @@ public class Dobble {
        }
 
        return true;
+    }
+
+    public Dobble missingCards( Dobble cartas ){
+        int n = cartas.get(0).size();
+        int ndobble = deck.get(0).size();
+        int tdobble = deck.size();
+        Dobble deck3 = new Dobble(ndobble, tdobble);
+        Dobble deck2 = new Dobble();
+        if(n == deck3.get(0).size()){
+            for(int i = 0; i < deck3.size(); i++){
+                int cont = 0;
+                for(int j = 0; j < cartas.size(); j++){
+                    if(deck3.get(i).equals(cartas.get(j))){
+                        cont = cont + 1;
+                    }
+                    if(cont == 0 && j == cartas.size()-1){
+                        deck2.anadir(deck3.get(i));
+                    }
+                }
+            }
+        }
+        return deck2;
     }
 }
 

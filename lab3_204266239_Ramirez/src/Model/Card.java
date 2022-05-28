@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Card {
     private ArrayList<String> num;
@@ -29,5 +30,18 @@ public class Card {
 
     public String get(Integer n){
         return num.get(n);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Card card = (Card) o;
+        return Objects.equals(num, card.num);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(num);
     }
 }
