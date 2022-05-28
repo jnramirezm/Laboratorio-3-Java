@@ -4,33 +4,37 @@ import Model.*;
 import java.util.ArrayList;
 
 public class Controller {
-    private DobbleGame game;
+    private Game game;
 
-    public Controller(DobbleGame game){
+    public Controller(Game game){
         this.game = game;
     }
 
-    public DobbleGame getGame() {
+    public Game getGame() {
         return game;
     }
 
-    public void setGame(DobbleGame game) {
+    public void setGame(Game game) {
         this.game = game;
     }
 
+    public Boolean estaRegistrado(){
+        Game game = getGame();
+        return game.getEstaRegistrado();
+    }
+    public void registradoconexito(){
+        Game game = getGame();
+        game.setEstaRegistrado(true);
+    }
+
     public void register(String name){
-        DobbleGame game = getGame();
-        if( game.getTotalPlayers() > game.getPlayers().size()){
-            System.out.println("Ya se ha registrado el total de jugadores para la partida");
-            return;
-        }
-        for(int i = 0; i < game.getTotalPlayers(); i++){
-            if(game.getPlayers().get(i).getName().equals(name)){
+        Game game = getGame();
+        for(int i = 0; i < game.getUsuarios().size(); i++){
+            if(game.getUsuarios().get(i).equals(name)){
                 System.out.println("Este jugador ya esta registrado");
             }
         }
-        Player newPlayer = new Player(name);
-        game.getPlayers().add(newPlayer);
+        game.getUsuarios().add(name);
     }
 
 }

@@ -8,6 +8,7 @@ public class DobbleGame {
     private Integer estadoPartida;
     private Dobble mesa;
     private String modo;
+    private Boolean estaRegistrado;
 
     public DobbleGame(Integer tplayers, Integer tdeck, String mgame ){
         this.cardsSet = new Dobble(tdeck, 0);
@@ -16,6 +17,7 @@ public class DobbleGame {
         this.players = new ArrayList<Player>();
         this.estadoPartida = 0;
         this.mesa = new Dobble();
+        this.estaRegistrado = false;
     }
 
     public Dobble getCardsSet() {
@@ -64,5 +66,13 @@ public class DobbleGame {
 
     public void setModo(String modo) {
         this.modo = modo;
+    }
+
+    public Boolean getEstaRegistrado() {
+        return estaRegistrado;
+    }
+
+    public void setEstaRegistrado(Boolean estaRegistrado) {
+        this.estaRegistrado = estaRegistrado;
     }
 }

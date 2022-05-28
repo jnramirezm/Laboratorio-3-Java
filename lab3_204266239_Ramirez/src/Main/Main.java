@@ -2,11 +2,14 @@ package Main;
 
 import Model.*;
 import Controller.Controller;
+import View.Menu;
 
 public class Main {
     public static void main(String[] args){
-        Dobble d = new Dobble(4,0);
-        Dobble c = new Dobble(4,5);
-        System.out.println(d.getDeck());
+        Game game = new Game();
+        Controller controller = new Controller(game);
+        Menu menu = new Menu(controller);
+        menu.menu();
+        return;
     }
 }
