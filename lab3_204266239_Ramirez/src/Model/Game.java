@@ -2,23 +2,31 @@ package Model;
 import java.util.ArrayList;
 
 public class Game {
-    private ArrayList<DobbleGame> games;
+    private DobbleGame dobbleGame;
     private ArrayList<String> usuarios;
     private Boolean estaRegistrado = false;
+    private String registrado;
+    private Boolean gameCreado = false;
 
     public Game(){
         this.usuarios = new ArrayList<>();
-        this.games = new ArrayList<DobbleGame>();
     }
 
-    public ArrayList<DobbleGame> getGames() {
-        return games;
+    public DobbleGame getDobbleGame() {
+        return dobbleGame;
     }
 
-    public void setGames(ArrayList<DobbleGame> games) {
-        this.games = games;
+    public void setDobbleGame(DobbleGame game) {
+        this.dobbleGame = game;
     }
 
+    public String getRegistrado() {
+        return registrado;
+    }
+
+    public void setRegistrado(String registrad) {
+        registrado = registrad;
+    }
     public ArrayList<String> getUsuarios() {
         return usuarios;
     }
@@ -33,5 +41,13 @@ public class Game {
 
     public void setEstaRegistrado(Boolean estaRegistrado) {
         this.estaRegistrado = estaRegistrado;
+    }
+
+    public Boolean getGameCreado() {
+        return gameCreado;
+    }
+
+    public void setGameCreado(Boolean gameCreado) {
+        this.gameCreado = gameCreado;
     }
 }

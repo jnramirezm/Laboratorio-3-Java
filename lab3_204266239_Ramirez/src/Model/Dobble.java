@@ -86,6 +86,10 @@ public class Dobble {
         deck.add(carta);
     }
 
+    public void eliminarCarta(Integer index){
+        deck.remove(index);
+    }
+
     @Override
     public String toString() {
         return
