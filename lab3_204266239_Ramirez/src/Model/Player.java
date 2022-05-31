@@ -46,4 +46,14 @@ public class Player {
         this.cards = cards;
     }
 
+    @Override
+    public String toString() {
+        String salida = new String();
+        if(getCards().size() >= 1  ){
+            salida = "Jugador " + getName() + "= Puntos: " + getScore() + " Turno: " + getTurn() + " Cartas en mano: " + getCards().cartasJugadortoString();
+            return salida;
+        }
+        salida = "Jugador " + getName() + "= Puntos: " + getScore() + " Turno: " + getTurn();
+        return salida;
+    }
 }

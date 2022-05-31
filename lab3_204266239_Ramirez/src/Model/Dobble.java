@@ -92,11 +92,32 @@ public class Dobble {
 
     @Override
     public String toString() {
-        return
-                "deck=" + deck
-                ;
+        String salida = new String();
+        salida = salida + "------ Cartas ------";
+        for(int i = 0; i < getDeck().size(); i++){
+            salida = salida + " \nCarta = " + getDeck().get(i);
+        }
+        salida = salida + "\n------------------";
+        return salida;
     }
 
+    public String cartasJugadortoString() {
+        String salida = new String();
+        salida = salida + "-- Cartas --";
+        for(int i = 0; i < getDeck().size(); i++){
+            salida = salida + " \nCarta = " + getDeck().get(i);
+        }
+        salida = salida + "\n----------";
+        return salida;
+    }
+
+    public String mesatoString(){
+        String salida = new String();
+        for(int i = 0; i < getDeck().size(); i++){
+            salida = salida + getDeck().get(i) + " ";
+        }
+        return salida;
+    }
 
 
     public Boolean isDobble(){

@@ -2,6 +2,8 @@ package View;
 
 import java.util.ArrayList;
 import Controller.Controller;
+
+import javax.annotation.processing.SupportedSourceVersion;
 import java.util.Scanner;
 
 
@@ -101,9 +103,6 @@ public class Menu {
                                                 break;
                                             case 2:
                                                 controller.getGame().getDobbleGame().setEstadoPartida(1);
-                                                System.out.println("-------- Partida en Progreso --------");
-                                                controller.nullGame(modo);
-
                                                 break;
                                             case 3:
                                                 controller.getGame().setGameCreado(false);
@@ -113,6 +112,38 @@ public class Menu {
                                     } catch (Exception e) {
                                         System.out.println("Solo es valido el ingreso de numeros");
                                         scan.next();
+                                    }
+                                }
+                                else{
+                                    while(controller.getGame().getDobbleGame().getEstadoPartida() == 1){
+                                        int selectPartida;
+                                        System.out.println("-------- Partida en Progreso --------");
+                                        controller.nullGame(modo);
+                                        System.out.println(controller.VisibletoString());
+                                        System.out.println(" Puede elegir entre estas opciones: ");
+                                        System.out.println("1. spotIt");
+                                        System.out.println("2. Pasar de turno");
+                                        System.out.println("3. Finalizar el juego");
+                                        try{
+                                            System.out.println("Ingrese la opcion: ");
+                                            selectPartida = scan.nextInt();
+                                            switch (selectPartida) {
+                                                case 1:
+                                                    controller.getGame().getDobbleGame().setEstadoPartida(1);
+                                                    break;
+                                                case 2:
+                                                    controller.getGame().getDobbleGame().setEstadoPartida(1);
+                                                    break;
+                                                case 3:
+                                                    controller.getGame().getDobbleGame().setEstadoPartida(2);
+                                                    controller.getGame().setGameCreado(false);
+                                                    break;
+                                            }
+                                        } catch (Exception e) {
+                                            System.out.println("Solo es valido el ingreso de numeros");
+                                            scan.next();
+                                        }
+                                        break;
                                     }
                                 }
                             }

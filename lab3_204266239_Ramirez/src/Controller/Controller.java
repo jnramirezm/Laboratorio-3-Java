@@ -79,9 +79,23 @@ public class Controller {
         System.out.println("Se ha registrado el jugador con exito!.");
     }
 
+    public String VisibletoString(){
+        String salida = new String();
+        Game game = getGame();
+        salida = "Turno del jugador : " + game.getDobbleGame().whoseTurnIsIt() + "\n";
+        for(int i = 0; i < game.getDobbleGame().getPlayers().size(); i++){
+            if(game.getDobbleGame().getPlayers().get(i).getName().equals(game.getDobbleGame().whoseTurnIsIt())){
+                salida = salida + "Su Turno: " + game.getDobbleGame().getPlayers().get(i).getTurn();
+                salida = salida + "   Su Puntaje: " + game.getDobbleGame().getPlayers().get(i).getScore();
+            }
+        }
+        salida = salida + "\n -- Cartas en Mesa -- \n" + game.getDobbleGame().getMesa().mesatoString() + "\n";
+        return salida;
+    }
+
     public void nullGame(String modo) {
+        Game game = getGame();
         if (modo.equals("Stack")) {
-            Game game = getGame();
             game.getDobbleGame().getMesa().anadir(game.getDobbleGame().getCardsSet().get(0));
             game.getDobbleGame().getMesa().anadir(game.getDobbleGame().getCardsSet().get(1));
             game.getDobbleGame().getCardsSet().eliminarCarta(0);
