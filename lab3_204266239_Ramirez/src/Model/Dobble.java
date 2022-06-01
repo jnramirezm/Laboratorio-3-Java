@@ -86,7 +86,7 @@ public class Dobble {
         deck.add(carta);
     }
 
-    public void eliminarCarta(Integer index){
+    public void eliminarCarta(Card index){
         deck.remove(index);
     }
 

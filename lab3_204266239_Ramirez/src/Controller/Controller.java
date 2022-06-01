@@ -2,6 +2,7 @@ package Controller;
 
 import Model.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Controller {
     private Game game;
@@ -96,10 +97,95 @@ public class Controller {
     public void nullGame(String modo) {
         Game game = getGame();
         if (modo.equals("Stack")) {
-            game.getDobbleGame().getMesa().anadir(game.getDobbleGame().getCardsSet().get(0));
-            game.getDobbleGame().getMesa().anadir(game.getDobbleGame().getCardsSet().get(1));
-            game.getDobbleGame().getCardsSet().eliminarCarta(0);
-            game.getDobbleGame().getCardsSet().eliminarCarta(1);
+            if(game.getDobbleGame().getCardsSet().size() < 2){
+                game.getDobbleGame().setEstadoPartida(2);
+                return;
+            }
+            if(game.getDobbleGame().getMesa().size() == 0){
+                game.getDobbleGame().getMesa().anadir(game.getDobbleGame().getCardsSet().get(0));
+                game.getDobbleGame().getMesa().anadir(game.getDobbleGame().getCardsSet().get(1));
+                game.getDobbleGame().getCardsSet().eliminarCarta(game.getDobbleGame().getCardsSet().get(0));
+                game.getDobbleGame().getCardsSet().eliminarCarta(game.getDobbleGame().getCardsSet().get(0));
+            }
         }
+    }
+
+    public void passGame(String name){
+        Game game = getGame();
+        for(int i = 0; i < getGame().getDobbleGame().getPlayers().size(); i++){
+            if(game.getDobbleGame().getPlayers().get(i).getName().equals(name)){
+               int turn = game.getDobbleGame().getPlayers().get(i).getTurn();
+               game.getDobbleGame().getPlayers().get(i).setTurn(turn+1);
+            }
+        }
+    }
+
+    public String elementComun(Card c1, Card c2){
+        String element = new String();
+        for(int i = 0; i < c1.size(); i++){
+            for(int j = 0; j < c2.size(); j++){
+                if(c1.get(i).equals(c2.get(j))){
+                    element = c1.get(i);
+                }
+            }
+        }
+        return element;
+    }
+
+    public void playGame(String modo, String element, String name){
+        Game game = getGame();
+        if(modo.equals("Stack")){
+         String eComun = elementComun(game.getDobbleGame().getMesa().get(0),game.getDobbleGame().getMesa().get(1));
+         if( eComun.equals(element)){
+             for(int i = 0; i < game.getDobbleGame().getPlayers().size(); i++ ){
+                 if(game.getDobbleGame().getPlayers().get(i).getName().equals(name)){
+                     int score = game.getDobbleGame().getPlayers().get(i).getScore();
+                     game.getDobbleGame().getPlayers().get(i).setScore(score+1);
+                     System.out.println("Ha acertado en el elemento en comun!:)\n");
+                     game.getDobbleGame().getPlayers().get(i).getCards().anadir(game.getDobbleGame().getMesa().get(0));
+                     game.getDobbleGame().getPlayers().get(i).getCards().anadir(game.getDobbleGame().getMesa().get(1));
+                     game.getDobbleGame().setMesa(new Dobble());
+                     passGame(name);
+                 }
+             }
+         }
+         else{
+             System.out.println("Se ha equivocado en el Elemento!\n");
+             passGame(name);
+         }
+        }
+    }
+
+    public String finishGame(){
+        Game game = getGame();
+        ArrayList<Player> players = game.getDobbleGame().getPlayers();
+        ArrayList<Integer> totalScore = new ArrayList<>();
+        String salida = new String();
+        for(int i = 0; i < players.size(); i++){
+            totalScore.add(players.get(i).getScore());
+        }
+        int mScore = Collections.max(totalScore);
+        int cont = 0;
+        for(int j =0; j < players.size(); j++){
+            if(mScore == players.get(j).getScore()){
+                cont = cont + 1;
+            }
+        }
+        if(cont == 1){
+            for(int k = 0; k < players.size(); k++){
+                if(players.get(k).getScore() == mScore){
+                    salida = salida + "El Ganador del juego es : "+players.get(k).getName() + "\n con un Puntaje de " + mScore ;
+                    return salida;
+                }
+            }
+        }
+        salida = "Hubo un empate entre los jugadores : ";
+        for(int h = 0; h < players.size(); h++){
+            if(players.get(h).getScore() == mScore){
+                salida = salida + players.get(h).getName();
+            }
+        }
+        salida = salida + " Ambos jugadores tuvieron un total de: " + mScore + " Puntos\n";
+        return salida;
     }
 }

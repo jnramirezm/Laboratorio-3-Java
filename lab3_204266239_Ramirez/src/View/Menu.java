@@ -84,6 +84,7 @@ public class Menu {
                             controller.crearGame(tPlayers, nMazo, modo);
 
                             while(controller.getGame().getGameCreado()) {
+                                boolean salirPartida = false;
                                 System.out.println(" ---------  Juego creado por " + controller.getGame().getRegistrado() + "  --------- ");
                                 System.out.println("Jugadores en partida  " + controller.getGame().getDobbleGame().getPlayers().size() + "/" + controller.getGame().getDobbleGame().getTotalPlayers());
                                 if (controller.getGame().getDobbleGame().getEstadoPartida() == 0) {
@@ -114,11 +115,14 @@ public class Menu {
                                         scan.next();
                                     }
                                 }
-                                else{
-                                    while(controller.getGame().getDobbleGame().getEstadoPartida() == 1){
+                                if (controller.getGame().getDobbleGame().getEstadoPartida() == 1){
+                                    while(!salirPartida){
                                         int selectPartida;
-                                        System.out.println("-------- Partida en Progreso --------");
                                         controller.nullGame(modo);
+                                        if (controller.getGame().getDobbleGame().getEstadoPartida() == 2){
+                                            break;
+                                        }
+                                        System.out.println("-------- Partida en Progreso --------");
                                         System.out.println(controller.VisibletoString());
                                         System.out.println(" Puede elegir entre estas opciones: ");
                                         System.out.println("1. spotIt");
@@ -129,14 +133,17 @@ public class Menu {
                                             selectPartida = scan.nextInt();
                                             switch (selectPartida) {
                                                 case 1:
-                                                    controller.getGame().getDobbleGame().setEstadoPartida(1);
+                                                    System.out.println("Ingrese el elemento en comun entre las cartas");
+                                                    scan.nextLine();
+                                                    String element = scan.nextLine();
+                                                    controller.playGame(modo,element, controller.getGame().getDobbleGame().whoseTurnIsIt());
                                                     break;
                                                 case 2:
-                                                    controller.getGame().getDobbleGame().setEstadoPartida(1);
+                                                    controller.passGame(controller.getGame().getDobbleGame().whoseTurnIsIt());
+                                                    System.out.println("Ha pasado de turno!\n");
                                                     break;
                                                 case 3:
                                                     controller.getGame().getDobbleGame().setEstadoPartida(2);
-                                                    controller.getGame().setGameCreado(false);
                                                     break;
                                             }
                                         } catch (Exception e) {
@@ -144,6 +151,30 @@ public class Menu {
                                             scan.next();
                                         }
                                         break;
+                                    }
+                                }
+                                if(controller.getGame().getDobbleGame().getEstadoPartida() == 2) {
+                                    System.out.println(" -------- Partida Finalizada --------");
+                                    System.out.println(controller.finishGame());
+                                    System.out.println("1. Crear un nuevo Juego");
+                                    System.out.println("2. Salir de la plataforma");
+                                    try{
+                                        System.out.println("Ingrese la opcion: " );
+                                        int selectFinalizado = scan.nextInt();
+                                        switch (selectFinalizado){
+                                            case 1:
+                                                controller.getGame().setGameCreado(false);
+                                                break;
+                                            case 2:
+                                                controller.getGame().setGameCreado(false);
+                                                salir = true;
+                                                System.out.println(" Ha salido con exito!\n");
+                                                break;
+                                        }
+
+                                    } catch (Exception e) {
+                                        System.out.println("Solo es valido el ingreso de numeros");
+                                        scan.next();
                                     }
                                 }
                             }
