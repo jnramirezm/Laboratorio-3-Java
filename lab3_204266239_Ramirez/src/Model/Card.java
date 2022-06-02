@@ -2,12 +2,20 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Collections;
 
 public class Card {
     private ArrayList<String> num;
 
+
+    public Card(){
+        this.num = new ArrayList<String>();
+    }
+
     public Card(ArrayList<String> num){
+
         this.num = num;
+        Collections.shuffle(num);
     }
 
     public ArrayList<String> getNum() {

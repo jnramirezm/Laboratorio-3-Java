@@ -83,29 +83,30 @@ public class Controller {
     public String VisibletoString(){
         String salida = new String();
         Game game = getGame();
-        salida = "Turno del jugador : " + game.getDobbleGame().whoseTurnIsIt() + "\n";
+        salida = "Turno del jugador : " + game.getDobbleGame().whoseTurnIsIt() + "        ";
         for(int i = 0; i < game.getDobbleGame().getPlayers().size(); i++){
             if(game.getDobbleGame().getPlayers().get(i).getName().equals(game.getDobbleGame().whoseTurnIsIt())){
-                salida = salida + "Su Turno: " + game.getDobbleGame().getPlayers().get(i).getTurn();
-                salida = salida + "   Su Puntaje: " + game.getDobbleGame().getPlayers().get(i).getScore();
+                salida = salida + " Turno: " + game.getDobbleGame().getPlayers().get(i).getTurn();
+                salida = salida + "    Puntaje: " + game.getDobbleGame().getPlayers().get(i).getScore() +"\n";
             }
         }
-        salida = salida + "\n -- Cartas en Mesa -- \n" + game.getDobbleGame().getMesa().mesatoString() + "\n";
+        salida = salida + "\n      ---      ---- Cartas en Mesa ----      ---      \n" + "                 " + game.getDobbleGame().getMesa().mesatoString() + "\n";
+        salida = salida + " ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- \n  ";
         return salida;
     }
 
     public void nullGame(String modo) {
         Game game = getGame();
         if (modo.equals("Stack")) {
-            if(game.getDobbleGame().getCardsSet().size() < 2){
+            if(game.getDobbleGame().getCardsSet().size() < 2 && game.getDobbleGame().getMesa().size() != 2){
                 game.getDobbleGame().setEstadoPartida(2);
                 return;
             }
             if(game.getDobbleGame().getMesa().size() == 0){
-                game.getDobbleGame().getMesa().anadir(game.getDobbleGame().getCardsSet().get(0));
-                game.getDobbleGame().getMesa().anadir(game.getDobbleGame().getCardsSet().get(1));
-                game.getDobbleGame().getCardsSet().eliminarCarta(game.getDobbleGame().getCardsSet().get(0));
-                game.getDobbleGame().getCardsSet().eliminarCarta(game.getDobbleGame().getCardsSet().get(0));
+                game.getDobbleGame().getMesa().anadir(game.getDobbleGame().getCardsSet().nthCard(0));
+                game.getDobbleGame().getMesa().anadir(game.getDobbleGame().getCardsSet().nthCard(1));
+                game.getDobbleGame().getCardsSet().eliminarCarta(game.getDobbleGame().getCardsSet().nthCard(0));
+                game.getDobbleGame().getCardsSet().eliminarCarta(game.getDobbleGame().getCardsSet().nthCard(0));
             }
         }
     }
@@ -135,22 +136,22 @@ public class Controller {
     public void playGame(String modo, String element, String name){
         Game game = getGame();
         if(modo.equals("Stack")){
-         String eComun = elementComun(game.getDobbleGame().getMesa().get(0),game.getDobbleGame().getMesa().get(1));
+         String eComun = elementComun(game.getDobbleGame().getMesa().nthCard(0),game.getDobbleGame().getMesa().nthCard(1));
          if( eComun.equals(element)){
              for(int i = 0; i < game.getDobbleGame().getPlayers().size(); i++ ){
                  if(game.getDobbleGame().getPlayers().get(i).getName().equals(name)){
                      int score = game.getDobbleGame().getPlayers().get(i).getScore();
                      game.getDobbleGame().getPlayers().get(i).setScore(score+1);
-                     System.out.println("Ha acertado en el elemento en comun!:)\n");
-                     game.getDobbleGame().getPlayers().get(i).getCards().anadir(game.getDobbleGame().getMesa().get(0));
-                     game.getDobbleGame().getPlayers().get(i).getCards().anadir(game.getDobbleGame().getMesa().get(1));
+                     System.out.println("   ---   Ha acertado en el elemento en comun!:)    ---   \n");
+                     game.getDobbleGame().getPlayers().get(i).getCards().anadir(game.getDobbleGame().getMesa().nthCard(0));
+                     game.getDobbleGame().getPlayers().get(i).getCards().anadir(game.getDobbleGame().getMesa().nthCard(1));
                      game.getDobbleGame().setMesa(new Dobble());
                      passGame(name);
                  }
              }
          }
          else{
-             System.out.println("Se ha equivocado en el Elemento!\n");
+             System.out.println("   ---   Se ha equivocado en el Elemento en comun!   ---   \n");
              passGame(name);
          }
         }
@@ -174,18 +175,21 @@ public class Controller {
         if(cont == 1){
             for(int k = 0; k < players.size(); k++){
                 if(players.get(k).getScore() == mScore){
-                    salida = salida + "El Ganador del juego es : "+players.get(k).getName() + "\n con un Puntaje de " + mScore ;
+                    salida = salida + "\n     El Ganador del juego es : "+players.get(k).getName() + "\n     con un Puntaje de " + mScore +"\n" ;
+                    salida = salida + "\n  ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----\n ";
                     return salida;
                 }
             }
         }
-        salida = "Hubo un empate entre los jugadores : ";
+        salida = "\n     Hubo un empate entre los jugadores : |  ";
         for(int h = 0; h < players.size(); h++){
             if(players.get(h).getScore() == mScore){
-                salida = salida + players.get(h).getName();
+                salida = salida + players.get(h).getName() + "  ";
             }
         }
-        salida = salida + " Ambos jugadores tuvieron un total de: " + mScore + " Puntos\n";
+        salida = salida + "|";
+        salida = salida + " \n     Ambos jugadores tuvieron un total de " + mScore + " Puntos\n";
+        salida = salida + "\n  ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- \n";
         return salida;
     }
 }

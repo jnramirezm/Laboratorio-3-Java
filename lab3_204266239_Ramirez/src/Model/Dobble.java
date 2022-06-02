@@ -1,5 +1,7 @@
 package Model;
+import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -49,6 +51,7 @@ public class Dobble {
             }
             this.deck = deck2;
         }
+        Collections.shuffle(deck);
     }
 
     public ArrayList<Card> getDeck() {
@@ -86,6 +89,15 @@ public class Dobble {
         deck.add(carta);
     }
 
+    public Card nthCard(Integer i){
+        return deck.get(i);
+    }
+
+    public Integer findTotalCards(){
+        Dobble nD = new Dobble(deck.size(),0);
+        return nD.size();
+    }
+
     public void eliminarCarta(Card index){
         deck.remove(index);
     }
@@ -95,7 +107,7 @@ public class Dobble {
         String salida = new String();
         salida = salida + "------ Cartas ------";
         for(int i = 0; i < getDeck().size(); i++){
-            salida = salida + " \nCarta = " + getDeck().get(i);
+            salida = salida + " \nCarta = " + nthCard(i);
         }
         salida = salida + "\n------------------";
         return salida;
@@ -105,7 +117,7 @@ public class Dobble {
         String salida = new String();
         salida = salida + "-- Cartas --";
         for(int i = 0; i < getDeck().size(); i++){
-            salida = salida + " \nCarta = " + getDeck().get(i);
+            salida = salida + " \nCarta = " + nthCard(i);
         }
         salida = salida + "\n----------";
         return salida;
@@ -114,7 +126,7 @@ public class Dobble {
     public String mesatoString(){
         String salida = new String();
         for(int i = 0; i < getDeck().size(); i++){
-            salida = salida + getDeck().get(i) + " ";
+            salida = salida + nthCard(i) + " ";
         }
         return salida;
     }
@@ -124,21 +136,21 @@ public class Dobble {
         for(int i = 0; i < deck.size()-1; i++) {
            for(int u = 0; u < deck.get(i).size()-1; u++){
                for(int y = 1; y < deck.get(i).size(); y++){
-                   if(deck.get(i).get(u).equals(deck.get(i).get(y)) && u != y){
+                   if(nthCard(i).get(u).equals(nthCard(i).get(y)) && u != y){
                        return false;
                    }
                }
            }
            for (int j = 1; j < deck.size(); j++) {
-               if (deck.get(i).equals(deck.get(j))  && i != j){
+               if (nthCard(i).equals(nthCard(j))  && i != j){
                    return false;
                }
            }
            for(int k = 1; k < deck.size(); k++){
                int cont = 0;
-               for(int v = 0; v < deck.get(i).size(); v++){
+               for(int v = 0; v < nthCard(i).size(); v++){
                    for(int f = 0; f < deck.get(k).size(); f++){
-                       if(deck.get(i).get(v).equals(deck.get(k).get(f)) && i != k){
+                       if(nthCard(i).get(v).equals(nthCard(k).get(f)) && i != k){
                            cont = cont + 1;
                        }
                        if(cont > 1){
