@@ -40,6 +40,16 @@ public class Card {
         return num.get(n);
     }
 
+    public boolean ElemRep(){
+        ArrayList<String> eCard = getNum();
+        for(int i = 0; i < eCard.size()-1; i++){
+            if(eCard.get(i).equals(eCard.get(i+1))){
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -3,6 +3,7 @@ package Controller;
 import Model.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class Controller {
     private Game game;
@@ -30,15 +31,27 @@ public class Controller {
 
     public void register(String name){
         Game game = getGame();
+        if(name.equals("CPU")){
+            System.out.println("Nombre reservado, no puede registrar este nombre!");
+            return;
+        }
+
         if(game.getUsuarios().size() == 0){
+            System.out.println("Se ha registrado con Exito!");
             game.setRegistrado(name);
+            game.getUsuarios().add(name);
+            registradoconexito();
+            return;
+
         }
         for(int i = 0; i < game.getUsuarios().size(); i++){
             if(game.getUsuarios().get(i).equals(name)){
                 System.out.println("Este jugador ya esta registrado");
+                return;
             }
         }
         game.getUsuarios().add(name);
+        System.out.println("Se ha registrado con Exito!");
     }
 
     public void crearGame(Integer n, Integer nE, String m){
@@ -69,6 +82,10 @@ public class Controller {
             System.out.println("Ya esta el total de jugadores registrados para este juego!.");
             return;
         }
+        if(name.equals("CPU")){
+            System.out.println("Nombre reservado, no puede registrar este nombre!");
+            return;
+        }
         for(int i = 0; i < game.getDobbleGame().getPlayers().size(); i++) {
             if (game.getDobbleGame().getPlayers().get(i).getName().equals(name)) {
                 System.out.println("Este nombre ya esta registrado!");
@@ -90,7 +107,7 @@ public class Controller {
                 salida = salida + "    Puntaje: " + game.getDobbleGame().getPlayers().get(i).getScore() +"\n";
             }
         }
-        salida = salida + "\n      ---      ---- Cartas en Mesa ----      ---      \n" + "                 " + game.getDobbleGame().getMesa().mesatoString() + "\n";
+        salida = salida + "\n      ---      ---- Cartas en Mesa ----      ---      \n" + "          " + game.getDobbleGame().getMesa().mesatoString() + "\n";
         salida = salida + " ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- \n  ";
         return salida;
     }
@@ -136,24 +153,53 @@ public class Controller {
     public void playGame(String modo, String element, String name){
         Game game = getGame();
         if(modo.equals("Stack")){
-         String eComun = elementComun(game.getDobbleGame().getMesa().nthCard(0),game.getDobbleGame().getMesa().nthCard(1));
-         if( eComun.equals(element)){
-             for(int i = 0; i < game.getDobbleGame().getPlayers().size(); i++ ){
-                 if(game.getDobbleGame().getPlayers().get(i).getName().equals(name)){
-                     int score = game.getDobbleGame().getPlayers().get(i).getScore();
-                     game.getDobbleGame().getPlayers().get(i).setScore(score+1);
-                     System.out.println("   ---   Ha acertado en el elemento en comun!:)    ---   \n");
-                     game.getDobbleGame().getPlayers().get(i).getCards().anadir(game.getDobbleGame().getMesa().nthCard(0));
-                     game.getDobbleGame().getPlayers().get(i).getCards().anadir(game.getDobbleGame().getMesa().nthCard(1));
-                     game.getDobbleGame().setMesa(new Dobble());
-                     passGame(name);
-                 }
-             }
-         }
-         else{
-             System.out.println("   ---   Se ha equivocado en el Elemento en comun!   ---   \n");
-             passGame(name);
-         }
+            if(!name.equals("CPU")){
+                String eComun = elementComun(game.getDobbleGame().getMesa().nthCard(0),game.getDobbleGame().getMesa().nthCard(1));
+                if( eComun.equals(element)){
+                    for(int i = 0; i < game.getDobbleGame().getPlayers().size(); i++ ){
+                        if(game.getDobbleGame().getPlayers().get(i).getName().equals(name)){
+                            int score = game.getDobbleGame().getPlayers().get(i).getScore();
+                            game.getDobbleGame().getPlayers().get(i).setScore(score+1);
+                            System.out.println("   ---   Ha acertado en el elemento en comun!:)    ---   \n");
+                            game.getDobbleGame().getPlayers().get(i).getCards().anadir(game.getDobbleGame().getMesa().nthCard(0));
+                            game.getDobbleGame().getPlayers().get(i).getCards().anadir(game.getDobbleGame().getMesa().nthCard(1));
+                            game.getDobbleGame().setMesa(new Dobble());
+                            passGame(name);
+                        }
+                    }
+                }
+                else{
+                    System.out.println("   ---   Se ha equivocado en el Elemento en comun!   ---   \n");
+                    passGame(name);
+                }
+            }
+            if(name.equals("CPU")){
+                Random rnd = new Random();
+                String eComun = elementComun(game.getDobbleGame().getMesa().nthCard(0),game.getDobbleGame().getMesa().nthCard(1));
+                ArrayList<String> lProb = new ArrayList<>();
+                lProb.add(eComun);
+                int index = rnd.nextInt((game.getDobbleGame().getMesa().nthCard(0).size()));
+                if(!game.getDobbleGame().getMesa().nthCard(0).get(index).equals(eComun)){
+                    lProb.add(game.getDobbleGame().getMesa().nthCard(0).get(index));
+                }
+                Random rnd2 = new Random();
+                int index2 = rnd2.nextInt(lProb.size());
+                if(lProb.get(index2).equals(eComun)){
+                    for(int i = 0; i < game.getDobbleGame().getPlayers().size(); i++ ){
+                        if(game.getDobbleGame().getPlayers().get(i).getName().equals(name)){
+                            int score = game.getDobbleGame().getPlayers().get(i).getScore();
+                            game.getDobbleGame().getPlayers().get(i).setScore(score+1);
+                            game.getDobbleGame().getPlayers().get(i).getCards().anadir(game.getDobbleGame().getMesa().nthCard(0));
+                            game.getDobbleGame().getPlayers().get(i).getCards().anadir(game.getDobbleGame().getMesa().nthCard(1));
+                            game.getDobbleGame().setMesa(new Dobble());
+                            passGame(name);
+                        }
+                    }
+                }
+                else{
+                    passGame(name);
+                }
+            }
         }
     }
 
