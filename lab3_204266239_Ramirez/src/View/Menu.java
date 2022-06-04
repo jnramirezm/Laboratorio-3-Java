@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import Controller.Controller;
 import Model.Player;
 
-import javax.annotation.processing.SupportedSourceVersion;
 import java.util.Scanner;
 
 
@@ -30,7 +29,7 @@ public class Menu {
         Controller controller = getController();
         while(!salir){
             if(!controller.estaRegistrado()){
-                System.out.println(" ##### DOBBLE ######");
+                System.out.println(" -------- DOBBLE --------");
                 System.out.println("Usted no esta registrado");
                 System.out.println("1. Registrarse");
                 System.out.println("2. Salir");
@@ -61,7 +60,8 @@ public class Menu {
                 System.out.println("Usted esta registrado con el nombre: " + controller.getGame().getRegistrado());
                 System.out.println("1. Crear Juego");
                 System.out.println("2. Registrar nuevo usuario");
-                System.out.println("3. Salir");
+                System.out.println("3. Cambiar de usuario");
+                System.out.println("4. Salir");
                 try{
                     System.out.println("Ingrese la opcion: ");
                     selectRegister = scan.nextInt();
@@ -187,7 +187,7 @@ public class Menu {
                                 if(controller.getGame().getDobbleGame().getEstadoPartida() == 2) {
                                     System.out.println(" ------------------- Partida Finalizada -------------------");
                                     System.out.println(controller.finishGame());
-                                    System.out.println("1. Crear un nuevo Juego");
+                                    System.out.println("1. Volver al Menu");
                                     System.out.println("2. Salir de la plataforma");
                                     try{
                                         System.out.println("Ingrese la opcion: " );
@@ -220,6 +220,11 @@ public class Menu {
                         case 3:
                             salir = true;
                             System.out.println("Ha salido con exito");
+                            break;
+                        case 4:
+                            salir = true;
+                            System.out.println("Ha salido con exito");
+                            break;
                     }
                 } catch (Exception e) {
                     System.out.println("Solo es valido el ingreso de numeros");

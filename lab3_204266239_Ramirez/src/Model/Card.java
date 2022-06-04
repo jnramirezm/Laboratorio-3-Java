@@ -1,10 +1,18 @@
 package Model;
 
+import Interface.Elementos;
+
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Collections;
 
-public class Card {
+/**
+ * Clase que simula una carta, que contiene elementos, estos elementos son una lista de String
+ * @version 11.0.15
+ * @autos Juan Ramirez Montero
+ */
+
+public class Card implements Elementos {
     private ArrayList<String> num;
 
 
@@ -17,6 +25,11 @@ public class Card {
         this.num = num;
         Collections.shuffle(num);
     }
+
+    /**
+     * obtiene los elementos (Lista de string) de una carta
+     * @return un ArrayList de tipo String al obtener la lista de elementos
+     */
 
     public ArrayList<String> getNum() {
         return num;

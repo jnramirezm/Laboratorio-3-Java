@@ -1,11 +1,11 @@
 package Model;
-import java.awt.image.AreaAveragingScaleFilter;
+
+import Interface.cardsSet;
+
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Set;
-import java.util.HashSet;
 
-public class Dobble {
+public class Dobble implements cardsSet{
     private ArrayList<Card> deck;
     private ArrayList<String> card;
     private Integer numE;
@@ -20,7 +20,7 @@ public class Dobble {
 
     public Dobble(Integer num, Integer maxC){
         this.numE = num - 1;
-        this.card = new ArrayList<>();
+        card = new ArrayList<>();
         deck = new ArrayList<>();
         for(int i=1; i<= numE+1; i++){
             card.add(Integer.toString(i));
