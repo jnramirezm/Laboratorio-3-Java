@@ -1,8 +1,11 @@
 package Model;
+
+import Interface.dGame;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class DobbleGame {
+public class DobbleGame implements dGame {
     private Dobble cardsSet;
     private ArrayList<Player> players;
     private Integer totalPlayers;

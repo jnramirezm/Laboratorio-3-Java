@@ -13,17 +13,17 @@ import java.util.Collections;
  */
 
 public class Card implements Elementos {
-    private ArrayList<String> num;
+    private ArrayList<String> elements;
 
 
     public Card(){
-        this.num = new ArrayList<String>();
+        this.elements = new ArrayList<String>();
     }
 
-    public Card(ArrayList<String> num){
+    public Card(ArrayList<String> elements){
 
-        this.num = num;
-        Collections.shuffle(num);
+        this.elements = elements;
+        Collections.shuffle(elements);
     }
 
     /**
@@ -31,36 +31,42 @@ public class Card implements Elementos {
      * @return un ArrayList de tipo String al obtener la lista de elementos
      */
 
-    public ArrayList<String> getNum() {
-        return num;
+    public ArrayList<String> getElements() {
+        return elements;
     }
 
-    public void setNum(ArrayList<String> num) {
-        this.num = num;
+    public void setElements(ArrayList<String> elements) {
+        this.elements = elements;
+    }
+
+    public void anadirElement(String e){
+        elements.add(e);
     }
 
     @Override
     public String toString() {
         return "" +
-                num
+                elements
                 ;
     }
     public Integer size(){
-        return num.size();
+        return elements.size();
     }
 
     public String get(Integer n){
-        return num.get(n);
+        return elements.get(n);
     }
 
     public boolean ElemRep(){
-        ArrayList<String> eCard = getNum();
-        for(int i = 0; i < eCard.size()-1; i++){
-            if(eCard.get(i).equals(eCard.get(i+1))){
-                return false;
+        ArrayList<String> eCard = getElements();
+        for(int i = 0; i < eCard.size(); i++){
+            for(int j = 0; j < eCard.size(); j++){
+                if(eCard.get(i).equals(eCard.get(j)) && j != i){
+                    return true;
+                }
             }
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -68,11 +74,11 @@ public class Card implements Elementos {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Card card = (Card) o;
-        return Objects.equals(num, card.num);
+        return Objects.equals(elements, card.elements);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(num);
+        return Objects.hash(elements);
     }
 }

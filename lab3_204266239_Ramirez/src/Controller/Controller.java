@@ -97,6 +97,17 @@ public class Controller {
         System.out.println("Se ha registrado el jugador con exito!.");
     }
 
+    public String userToString(){
+        String salida = new String();
+        Game game = getGame();
+        ArrayList<String> userList = game.getUsuarios();
+        salida = "Los usuarios registrados para cambiar son: \n";
+        for(int i = 0; i < userList.size(); i++){
+            salida = salida + (i+1)+ " " + userList.get(i) + "  ";
+        }
+        return salida;
+    }
+
     public String VisibletoString(){
         String salida = new String();
         Game game = getGame();

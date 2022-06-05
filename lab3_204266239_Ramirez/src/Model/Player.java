@@ -1,7 +1,9 @@
 package Model;
+import Interface.InterfPlayer;
+
 import java.util.ArrayList;
 
-public class Player {
+public class Player implements InterfPlayer {
     private String name;
     private Integer turn;
     private Integer score;

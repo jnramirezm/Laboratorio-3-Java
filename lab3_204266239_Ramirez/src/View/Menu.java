@@ -218,8 +218,11 @@ public class Menu {
                             controller.register(name);
                             break;
                         case 3:
-                            salir = true;
-                            System.out.println("Ha salido con exito");
+                            int nUser;
+                            System.out.println(controller.userToString());
+                            System.out.println("Ingrese el numero del usuario a cambiar.");
+                            nUser = scan.nextInt();
+                            controller.getGame().setRegistrado(controller.getGame().getUsuarios().get(nUser-1));
                             break;
                         case 4:
                             salir = true;

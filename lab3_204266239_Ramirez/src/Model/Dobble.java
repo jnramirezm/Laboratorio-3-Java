@@ -7,41 +7,36 @@ import java.util.Collections;
 
 public class Dobble implements cardsSet{
     private ArrayList<Card> deck;
-    private ArrayList<String> card;
     private Integer numE;
 
     public Dobble(){
         this.deck = new ArrayList<>();
     }
 
-    public Dobble(ArrayList<Card> deck){
-        this.deck = deck;
-    }
-
     public Dobble(Integer num, Integer maxC){
         this.numE = num - 1;
-        card = new ArrayList<>();
+        Card card = new Card();
         deck = new ArrayList<>();
         for(int i=1; i<= numE+1; i++){
-            card.add(Integer.toString(i));
+            card.anadirElement(Integer.toString(i));
         }
-        deck.add(new Card(card));
+        deck.add(card);
         for(int j = 1; j<= numE; j++){
-            this.card = new ArrayList<>();
-            card.add(Integer.toString(1));
+            Card card1 = new Card();
+            card1.anadirElement(Integer.toString(1));
             for(int k = 1; k<= numE; k++){
-                card.add(Integer.toString((numE * j + (k+1))));
+                card1.anadirElement(Integer.toString((numE * j + (k+1))));
             }
-            deck.add(new Card (card));
+            deck.add(card1);
         }
         for (int u = 1; u <= numE; u++){
             for(int l = 1; l <= numE; l++){
-                card = new ArrayList<>();
-                card.add(Integer.toString((u+1)));
+                Card card2 = new Card();
+                card2.anadirElement(Integer.toString((u+1)));
                 for(int p = 1; p <= numE; p++){
-                    card.add(Integer.toString((numE+2+numE*(p-1)+(((u-1)*(p-1)+l-1)%numE))));
+                    card2.anadirElement(Integer.toString((numE+2+numE*(p-1)+(((u-1)*(p-1)+l-1)%numE))));
                 }
-                deck.add(new Card(card));
+                deck.add(card2);
             }
         }
         if(maxC > 1){
@@ -60,13 +55,6 @@ public class Dobble implements cardsSet{
 
     public void setDeck(ArrayList<Card> deck) {
         this.deck = deck;
-    }
-    public ArrayList<String> getCard() {
-        return card;
-    }
-
-    public void setCard(ArrayList<String> card) {
-        this.card = card;
     }
 
     public Integer getNumE() {
@@ -133,32 +121,36 @@ public class Dobble implements cardsSet{
 
 
     public Boolean isDobble(){
-        for(int i = 0; i < deck.size()-1; i++) {
-           for(int u = 0; u < deck.get(i).size()-1; u++){
-               for(int y = 1; y < deck.get(i).size(); y++){
-                   if(nthCard(i).get(u).equals(nthCard(i).get(y)) && u != y){
-                       return false;
-                   }
-               }
+        for(int i = 0; i < deck.size(); i++) {
+           if(nthCard(i).ElemRep()){
+               return false;
            }
-           for (int j = 1; j < deck.size(); j++) {
+           for (int j = 0; j < deck.size(); j++) {
                if (nthCard(i).equals(nthCard(j))  && i != j){
                    return false;
                }
            }
-           for(int k = 1; k < deck.size(); k++){
+           for(int p = 0; p < deck.size(); p++){
+               if(nthCard(i).size() != nthCard(p).size()){
+                   return false;
+               }
+           }
+           for(int k = 0; k < deck.size(); k++){
                int cont = 0;
-               for(int v = 0; v < nthCard(i).size(); v++){
-                   for(int f = 0; f < deck.get(k).size(); f++){
-                       if(nthCard(i).get(v).equals(nthCard(k).get(f)) && i != k){
-                           cont = cont + 1;
-                       }
-                       if(cont > 1){
-                           return false;
+               if(!nthCard(i).equals(nthCard(k))){
+                   for(int v = 0; v < nthCard(i).size(); v++){
+                       for(int f = 0; f < nthCard(k).size(); f++){
+                           if(nthCard(i).get(v).equals(nthCard(k).get(f))){
+                               cont = cont + 1;
+                           }
+                           if(cont != 1 && v == nthCard(i).size()-1 && f == nthCard(k).size()-1){
+                               return false;
+                           }
                        }
                    }
                }
-           }
+               }
+
        }
 
        return true;
