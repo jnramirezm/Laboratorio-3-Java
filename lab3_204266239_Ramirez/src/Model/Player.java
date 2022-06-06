@@ -2,6 +2,7 @@ package Model;
 import Interface.InterfPlayer;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Player implements InterfPlayer {
     private String name;
@@ -46,6 +47,19 @@ public class Player implements InterfPlayer {
 
     public void setCards(Dobble cards) {
         this.cards = cards;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return Objects.equals(name, player.name) && Objects.equals(turn, player.turn) && Objects.equals(score, player.score) && Objects.equals(cards, player.cards);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, turn, score, cards);
     }
 
     @Override

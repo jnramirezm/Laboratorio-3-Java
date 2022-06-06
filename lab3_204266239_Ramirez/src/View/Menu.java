@@ -5,6 +5,9 @@ import Controller.Controller;
 import Model.Player;
 
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 
 public class Menu {
@@ -100,7 +103,8 @@ public class Menu {
                                 }
                             } catch (Exception e) {
                                 System.out.println("Solo es valido el ingreso de numeros");
-                                scan.next();}
+                                scan.next();
+                            }
                             while(controller.getGame().getGameCreado()) {
                                 boolean salirPartida = false;
                                 System.out.println(" --------------  Juego creado por " + controller.getGame().getRegistrado() + "  -------------- ");
@@ -109,13 +113,13 @@ public class Menu {
                                     System.out.println("1. Anadir jugador al juego");
                                     System.out.println("2. Empezar juego");
                                     System.out.println("3. Jugar vs la CPU");
-                                    System.out.println("4. Salir del Juego");
+                                    System.out.println("4. CPU vs CPU");
+                                    System.out.println("5. Salir del Juego");
                                     try {
                                         System.out.println("\nIngrese la opcion: ");
                                         int selectGame = scan.nextInt();
                                         switch (selectGame) {
                                             case 1:
-
                                                 System.out.println(" -------- Registrando jugador a la partida ---------");
                                                 System.out.println("Ingrese el nombre: ");
                                                 scan.nextLine();
@@ -132,6 +136,15 @@ public class Menu {
                                                 controller.getGame().getDobbleGame().setEstadoPartida(1);
                                                 break;
                                             case 4:
+                                                controller.getGame().getDobbleGame().setTotalPlayers(2);
+                                                controller.getGame().getDobbleGame().setPlayers(new ArrayList<Player>());
+                                                Player cpu1 = new Player("CPU");
+                                                Player cpu2 = new Player("CPU1");
+                                                controller.getGame().getDobbleGame().getPlayers().add(cpu1);
+                                                controller.getGame().getDobbleGame().getPlayers().add(cpu2);
+                                                controller.getGame().getDobbleGame().setEstadoPartida(1);
+                                                break;
+                                            case 5:
                                                 controller.getGame().setGameCreado(false);
                                                 break;
                                         }
@@ -148,39 +161,51 @@ public class Menu {
                                         if (controller.getGame().getDobbleGame().getEstadoPartida() == 2){
                                             break;
                                         }
-                                        if(controller.getGame().getDobbleGame().whoseTurnIsIt().equals("CPU")){
-                                            controller.playGame(controller.getGame().getDobbleGame().getModo(),"", controller.getGame().getDobbleGame().whoseTurnIsIt());
-                                            System.out.println("               La CPU ha hecho su Turno\n");
-                                            break;
+                                        if(controller.getGame().getDobbleGame().getPlayers().get(0).getName().contains("CPU") && controller.getGame().getDobbleGame().getPlayers().get(1).getName().contains("CPU1")){
+                                            if(controller.getGame().getDobbleGame().whoseTurnIsIt().equals("CPU") || controller.getGame().getDobbleGame().whoseTurnIsIt().equals("CPU1") ){
+                                                System.out.println("------------------- Partida en Progreso -------------------");
+                                                System.out.println(controller.VisibletoString());
+                                                controller.playGame(controller.getGame().getDobbleGame().getModo(),"", controller.getGame().getDobbleGame().whoseTurnIsIt());
+                                                System.out.println("               La CPU ha hecho su Turno\n");
+                                                break;
+                                            }
+                                        }
+                                        else{
+                                            if (controller.getGame().getDobbleGame().whoseTurnIsIt().equals("CPU") || controller.getGame().getDobbleGame().whoseTurnIsIt().equals("CPU1")){
+                                                System.out.println("------------------- Partida en Progreso -------------------");
+                                                controller.playGame(controller.getGame().getDobbleGame().getModo(),"", controller.getGame().getDobbleGame().whoseTurnIsIt());
+                                                System.out.println("               La CPU ha hecho su Turno\n");
+                                                break;
+                                            }
                                         }
                                         System.out.println("------------------- Partida en Progreso -------------------");
                                         System.out.println(controller.VisibletoString());
                                         System.out.println(" Puede elegir entre estas opciones: ");
                                         System.out.println("1. spotIt");
-                                        System.out.println("2. Pasar de turno");
+                                        System.out.println("2. Pasar de Turno");
                                         System.out.println("3. Finalizar el juego");
-                                        try{
-                                            System.out.println("Ingrese la opcion: ");
-                                            selectPartida = scan.nextInt();
-                                            switch (selectPartida) {
-                                                case 1:
-                                                    System.out.println("Ingrese el elemento en comun entre las cartas");
-                                                    scan.nextLine();
-                                                    String element = scan.nextLine();
-                                                    controller.playGame(controller.getGame().getDobbleGame().getModo(),element, controller.getGame().getDobbleGame().whoseTurnIsIt());
-                                                    break;
-                                                case 2:
-                                                    controller.passGame(controller.getGame().getDobbleGame().whoseTurnIsIt());
-                                                    System.out.println("Ha pasado de turno!\n");
-                                                    break;
-                                                case 3:
-                                                    controller.getGame().getDobbleGame().setEstadoPartida(2);
-                                                    break;
-                                            }
-                                        } catch (Exception e) {
-                                            System.out.println("Solo es valido el ingreso de numeros");
-                                            scan.next();
-                                        }
+                                       try{
+                                           System.out.println("Ingrese la opcion");
+                                           selectPartida = scan.nextInt();
+                                           switch (selectPartida){
+                                               case 1:
+                                                   System.out.println("Ingrese el elemento en comun entre las cartas");
+                                                   scan.nextLine();
+                                                   String element = scan.nextLine();
+                                                   controller.playGame(controller.getGame().getDobbleGame().getModo(), element, controller.getGame().getDobbleGame().whoseTurnIsIt());
+                                                   break;
+                                               case 2:
+                                                   controller.passGame(controller.getGame().getDobbleGame().whoseTurnIsIt());
+                                                   System.out.println("Ha pasado de turno!\n");
+                                                   break;
+                                               case 3:
+                                                   controller.getGame().getDobbleGame().setEstadoPartida(2);
+                                                   break;
+                                           }
+                                       } catch(Exception e){
+                                           System.out.println("Solo es valido el ingreso de numeros");
+                                           scan.next();
+                                       }
                                         break;
                                     }
                                 }

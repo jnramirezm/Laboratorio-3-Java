@@ -4,6 +4,7 @@ import Interface.dGame;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 public class DobbleGame implements dGame {
     private Dobble cardsSet;
@@ -68,6 +69,19 @@ public class DobbleGame implements dGame {
 
     public void setModo(String modo) {
         this.modo = modo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DobbleGame that = (DobbleGame) o;
+        return Objects.equals(cardsSet, that.cardsSet) && Objects.equals(players, that.players) && Objects.equals(totalPlayers, that.totalPlayers) && Objects.equals(estadoPartida, that.estadoPartida) && Objects.equals(mesa, that.mesa) && Objects.equals(modo, that.modo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cardsSet, players, totalPlayers, estadoPartida, mesa, modo);
     }
 
     public String whoseTurnIsIt(){

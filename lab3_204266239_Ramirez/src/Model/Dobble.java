@@ -4,6 +4,7 @@ import Interface.cardsSet;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 public class Dobble implements cardsSet{
     private ArrayList<Card> deck;
@@ -15,18 +16,20 @@ public class Dobble implements cardsSet{
 
     public Dobble(Integer num, Integer maxC){
         this.numE = num - 1;
-        Card card = new Card();
+        ArrayList<String> elements = new ArrayList<String>();
         deck = new ArrayList<>();
         for(int i=1; i<= numE+1; i++){
-            card.anadirElement(Integer.toString(i));
+            elements.add(Integer.toString(i));
         }
-        deck.add(card);
+        ;
+        deck.add(new Card(elements));
         for(int j = 1; j<= numE; j++){
             Card card1 = new Card();
             card1.anadirElement(Integer.toString(1));
             for(int k = 1; k<= numE; k++){
                 card1.anadirElement(Integer.toString((numE * j + (k+1))));
             }
+            Collections.shuffle(card1.getElements());
             deck.add(card1);
         }
         for (int u = 1; u <= numE; u++){
@@ -36,6 +39,7 @@ public class Dobble implements cardsSet{
                 for(int p = 1; p <= numE; p++){
                     card2.anadirElement(Integer.toString((numE+2+numE*(p-1)+(((u-1)*(p-1)+l-1)%numE))));
                 }
+                Collections.shuffle(card2.getElements());
                 deck.add(card2);
             }
         }
@@ -78,6 +82,9 @@ public class Dobble implements cardsSet{
     }
 
     public Card nthCard(Integer i){
+        if( i < 0 ){
+            return new Card();
+        }
         return deck.get(i);
     }
 
@@ -176,6 +183,19 @@ public class Dobble implements cardsSet{
             }
         }
         return deck2;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dobble dobble = (Dobble) o;
+        return Objects.equals(deck, dobble.deck) && Objects.equals(numE, dobble.numE);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(deck, numE);
     }
 }
 

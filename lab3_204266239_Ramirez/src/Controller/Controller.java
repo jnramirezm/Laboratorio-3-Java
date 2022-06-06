@@ -1,11 +1,12 @@
 package Controller;
 
+import Interface.Repository;
 import Model.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class Controller {
+public class Controller implements Repository {
     private Game game;
 
     public Controller(Game game){
@@ -52,6 +53,32 @@ public class Controller {
         }
         game.getUsuarios().add(name);
         System.out.println("Se ha registrado con Exito!");
+    }
+
+    public Integer score(String name){
+        int score = 0;
+        Game game = getGame();
+        for(int i = 0; i < game.getDobbleGame().getPlayers().size(); i++ ){
+            if(name.equals(game.getDobbleGame().getPlayers().get(i).getName())){
+                score = game.getDobbleGame().getPlayers().get(i).getScore();
+            }
+        }
+        return score;
+    }
+
+    public String status(){
+        String salida = new String();
+        Game game = getGame();
+        if(game.getDobbleGame().getEstadoPartida() == 0){
+            salida = "Partida en registro de jugadores";
+        }
+        if(game.getDobbleGame().getEstadoPartida() == 1){
+            salida = "Partida en progreso";
+        }
+        if(game.getDobbleGame().getEstadoPartida() == 2){
+            salida = "Partida finalizada";
+        }
+        return salida;
     }
 
     public void crearGame(Integer n, Integer nE, String m){
@@ -111,7 +138,7 @@ public class Controller {
     public String VisibletoString(){
         String salida = new String();
         Game game = getGame();
-        salida = "Turno del jugador : " + game.getDobbleGame().whoseTurnIsIt() + "        ";
+        salida = "Turno del jugador : " + score(game.getDobbleGame().whoseTurnIsIt()) + "        ";
         for(int i = 0; i < game.getDobbleGame().getPlayers().size(); i++){
             if(game.getDobbleGame().getPlayers().get(i).getName().equals(game.getDobbleGame().whoseTurnIsIt())){
                 salida = salida + " Turno: " + game.getDobbleGame().getPlayers().get(i).getTurn();
@@ -164,7 +191,7 @@ public class Controller {
     public void playGame(String modo, String element, String name){
         Game game = getGame();
         if(modo.equals("Stack")){
-            if(!name.equals("CPU")){
+            if(!name.contains("CPU")){
                 String eComun = elementComun(game.getDobbleGame().getMesa().nthCard(0),game.getDobbleGame().getMesa().nthCard(1));
                 if( eComun.equals(element)){
                     for(int i = 0; i < game.getDobbleGame().getPlayers().size(); i++ ){
@@ -184,7 +211,7 @@ public class Controller {
                     passGame(name);
                 }
             }
-            if(name.equals("CPU")){
+            if(name.contains("CPU")){
                 Random rnd = new Random();
                 String eComun = elementComun(game.getDobbleGame().getMesa().nthCard(0),game.getDobbleGame().getMesa().nthCard(1));
                 ArrayList<String> lProb = new ArrayList<>();
