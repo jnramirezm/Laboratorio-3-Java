@@ -9,7 +9,7 @@ public interface cardsSet {
 
     public Card nthCard(Integer n);
 
-    public Integer findTotalCards();
+    public Integer findTotalCards(Card card);
 
     public Dobble missingCards(Dobble cartas);
 

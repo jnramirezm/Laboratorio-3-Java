@@ -17,6 +17,10 @@ public class Player implements InterfPlayer {
         this.cards = new Dobble();
     }
 
+    /**
+     * Obtiene el name (String) del jugador.
+     * @return name (String), que corresponde al nombre del jugador.
+     */
     public String getName() {
         return name;
     }
@@ -25,25 +29,52 @@ public class Player implements InterfPlayer {
         this.name = name;
     }
 
+    /**
+     * Obtiene el Turn (Integer) del jugador.
+     * @return turn (Integer) que corresponde al turno del jugador.
+     */
+
     public Integer getTurn() {
         return turn;
     }
 
+    /**
+     * Modifica el turno (Integer) del jugador.
+     * @param turn (Integer) que corresponde al turno que le pertenece al jugador.
+     */
     public void setTurn(Integer turn) {
         this.turn = turn;
     }
+
+    /**
+     * Obtiene el score (Integer) del jugador
+     * @return score (Integer) que corresponde al score del jugador.
+     */
 
     public Integer getScore() {
         return score;
     }
 
+    /**
+     * Modifica el score (Integer) del jugador.
+     * @param score (Integer), que corresponde al score nuevo al cual se quiere modificar
+     */
+
     public void setScore(Integer score) {
         this.score = score;
     }
 
+    /**
+     * Obtiene las cartas (Dobble) correspondientes al jugador.
+     * @return cards (Dobble) que corresponden las cartas que posee el jugador.
+     */
+
     public Dobble getCards() {
         return cards;
     }
+    /**
+     *
+     */
 
     public void setCards(Dobble cards) {
         this.cards = cards;
@@ -62,6 +93,10 @@ public class Player implements InterfPlayer {
         return Objects.hash(name, turn, score, cards);
     }
 
+    /**
+     * Convierte el player con su correspondiente contenido a String, mostrado el nombre, turno, sus cartas en mano y el puntaje.
+     * @return salida (String), que corresponde al Player con su contenido en string.
+     */
     @Override
     public String toString() {
         String salida = new String();
