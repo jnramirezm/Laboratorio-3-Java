@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+/**
+ *
+ * @version 11.0.15
+ * @autor Juan Ramirez Montero
+ */
+
 public class Controller implements Repository {
     private Game game;
 
@@ -66,21 +72,6 @@ public class Controller implements Repository {
         return score;
     }
 
-    public String status(){
-        String salida = new String();
-        Game game = getGame();
-        if(game.getDobbleGame().getEstadoPartida() == 0){
-            salida = "Partida en registro de jugadores";
-        }
-        if(game.getDobbleGame().getEstadoPartida() == 1){
-            salida = "Partida en progreso";
-        }
-        if(game.getDobbleGame().getEstadoPartida() == 2){
-            salida = "Partida finalizada";
-        }
-        return salida;
-    }
-
     public void crearGame(Integer n, Integer nE, String m){
         Game game = getGame();
         if(n == 0 || n == 1){
@@ -138,11 +129,11 @@ public class Controller implements Repository {
     public String VisibletoString(){
         String salida = new String();
         Game game = getGame();
-        salida = "Turno del jugador : " + score(game.getDobbleGame().whoseTurnIsIt()) + "        ";
+        salida = "Turno del jugador : " + game.getDobbleGame().whoseTurnIsIt() + "        ";
         for(int i = 0; i < game.getDobbleGame().getPlayers().size(); i++){
             if(game.getDobbleGame().getPlayers().get(i).getName().equals(game.getDobbleGame().whoseTurnIsIt())){
                 salida = salida + " Turno: " + game.getDobbleGame().getPlayers().get(i).getTurn();
-                salida = salida + "    Puntaje: " + game.getDobbleGame().getPlayers().get(i).getScore() +"\n";
+                salida = salida + "    Puntaje: " + score(game.getDobbleGame().getPlayers().get(i).getName()) +"\n";
             }
         }
         salida = salida + "\n      ---      ---- Cartas en Mesa ----      ---      \n" + "          " + game.getDobbleGame().getMesa().mesatoString() + "\n";
@@ -227,6 +218,7 @@ public class Controller implements Repository {
                         if(game.getDobbleGame().getPlayers().get(i).getName().equals(name)){
                             int score = game.getDobbleGame().getPlayers().get(i).getScore();
                             game.getDobbleGame().getPlayers().get(i).setScore(score+1);
+                            System.out.println("   --- La CPU Ha acertado en el elemento en comun!   --- \n            ----- El elemento fue: "+ eComun +" -----   \n");
                             game.getDobbleGame().getPlayers().get(i).getCards().anadir(game.getDobbleGame().getMesa().nthCard(0));
                             game.getDobbleGame().getPlayers().get(i).getCards().anadir(game.getDobbleGame().getMesa().nthCard(1));
                             game.getDobbleGame().setMesa(new Dobble());
@@ -235,6 +227,7 @@ public class Controller implements Repository {
                     }
                 }
                 else{
+                    System.out.println("   --- La CPU Ha fallado el elemento en comun!   --- \n           ----- El elemento fue: "+ lProb.get(index2) +" -----   \n");
                     passGame(name);
                 }
             }

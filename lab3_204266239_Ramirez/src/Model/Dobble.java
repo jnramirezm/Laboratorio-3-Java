@@ -6,16 +6,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 
+/**
+ * Clase que simula un Mazo de tipo Dobble (Que tiene un tipo de caracteristicas especiales para el juego)
+ * el cual contiene un mazo (Listas de cartas).
+ * @version 11.0.15
+ * @autor Juan Ramirez Montero
+ */
 public class Dobble implements cardsSet{
     private ArrayList<Card> deck;
-    private Integer numE;
 
     public Dobble(){
         this.deck = new ArrayList<>();
     }
 
     public Dobble(Integer num, Integer maxC){
-        this.numE = num - 1;
+        int numE = num - 1;
         ArrayList<String> elements = new ArrayList<String>();
         deck = new ArrayList<>();
         for(int i=1; i<= numE+1; i++){
@@ -71,23 +76,6 @@ public class Dobble implements cardsSet{
         this.deck = deck;
     }
 
-    /**
-     *
-     * @return
-     */
-
-    public Integer getNumE() {
-        return numE;
-    }
-
-    /**
-     *
-     * @param
-     */
-
-    public void setNumE(Integer numE) {
-        this.numE = numE;
-    }
 
     /**
      * Entrega el total de cartas en el mazo (Lista de Cartas)
@@ -259,12 +247,23 @@ public class Dobble implements cardsSet{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Dobble dobble = (Dobble) o;
-        return Objects.equals(deck, dobble.deck) && Objects.equals(numE, dobble.numE);
+        if (getDeck().size() != dobble.size()){
+            return false;
+        }
+        int cont = 0;
+        for(int i = 0; i < deck.size(); i++){
+            for(int j = 0; j < dobble.size(); j++){
+                if(nthCard(i).equals(dobble.nthCard(j))){
+                    cont= cont + 1;
+                }
+            }
+        }
+        return cont == deck.size();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(deck, numE);
+        return Objects.hash(deck);
     }
 }
 

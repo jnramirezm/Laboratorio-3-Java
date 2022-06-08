@@ -103,6 +103,9 @@ public class Card implements Elementos {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Card card = (Card) o;
+        if (card.size() != getElements().size()){
+            return false;
+        }
         int cont = 0;
         for(int i = 0; i < elements.size(); i++){
             for(int j = 0; j < card.size(); j++){

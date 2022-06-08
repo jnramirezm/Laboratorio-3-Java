@@ -158,22 +158,11 @@ public class Menu {
                                         if (controller.getGame().getDobbleGame().getEstadoPartida() == 2){
                                             break;
                                         }
-                                        if(controller.getGame().getDobbleGame().getPlayers().get(0).getName().contains("CPU") && controller.getGame().getDobbleGame().getPlayers().get(1).getName().contains("CPU1")){
-                                            if(controller.getGame().getDobbleGame().whoseTurnIsIt().equals("CPU") || controller.getGame().getDobbleGame().whoseTurnIsIt().equals("CPU1") ){
-                                                System.out.println("------------------- Partida en Progreso -------------------");
-                                                System.out.println(controller.VisibletoString());
-                                                controller.playGame(controller.getGame().getDobbleGame().getModo(),"", controller.getGame().getDobbleGame().whoseTurnIsIt());
-                                                System.out.println("               La CPU ha hecho su Turno\n");
-                                                break;
-                                            }
-                                        }
-                                        else{
-                                            if (controller.getGame().getDobbleGame().whoseTurnIsIt().equals("CPU") || controller.getGame().getDobbleGame().whoseTurnIsIt().equals("CPU1")){
-                                                System.out.println("------------------- Partida en Progreso -------------------");
-                                                controller.playGame(controller.getGame().getDobbleGame().getModo(),"", controller.getGame().getDobbleGame().whoseTurnIsIt());
-                                                System.out.println("               La CPU ha hecho su Turno\n");
-                                                break;
-                                            }
+                                        if(controller.getGame().getDobbleGame().whoseTurnIsIt().equals("CPU") || controller.getGame().getDobbleGame().whoseTurnIsIt().equals("CPU1") ){
+                                            System.out.println("------------------- Partida en Progreso -------------------");
+                                            System.out.println(controller.VisibletoString());
+                                            controller.playGame(controller.getGame().getDobbleGame().getModo(),"", controller.getGame().getDobbleGame().whoseTurnIsIt());
+                                            break;
                                         }
                                         System.out.println("------------------- Partida en Progreso -------------------");
                                         System.out.println(controller.VisibletoString());
@@ -193,7 +182,7 @@ public class Menu {
                                                    break;
                                                case 2:
                                                    controller.passGame(controller.getGame().getDobbleGame().whoseTurnIsIt());
-                                                   System.out.println("Ha pasado de turno!\n");
+                                                   System.out.println("\n          -------- Ha pasado de turno!  --------\n");
                                                    break;
                                                case 3:
                                                    controller.getGame().getDobbleGame().setEstadoPartida(2);
