@@ -98,6 +98,12 @@ public class Card implements Elementos {
         return false;
     }
 
+    /**
+     * Metodo que obtiene un boolean entre la comparacion de las cartas.
+     * @param o (Object), corresponde a un objecto con el contenido de una carta (ArrayList de String)
+     * @return boolean, True si las cartas comparadas son iguales, false si no.
+     */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

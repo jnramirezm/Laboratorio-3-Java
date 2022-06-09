@@ -88,9 +88,9 @@ public class Player implements InterfPlayer {
     }
 
     /**
-     *
-     * @param o
-     * @return
+     * Metodo que obtiene un boolean, entre la comparacion de 2 jugadores.
+     * @param o (Object), que corresponde a los contenidos de un Player.
+     * @return boolean, dependiendo si los players comparados son iguales o no.
      */
 
     @Override

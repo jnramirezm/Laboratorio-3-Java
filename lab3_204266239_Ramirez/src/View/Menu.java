@@ -6,7 +6,6 @@ import Model.Player;
 
 import java.util.Scanner;
 
-
 public class Menu {
     private Controller controller;
 
@@ -79,8 +78,8 @@ public class Menu {
                             nMazo = scan.nextInt();
                             System.out.println("Ingrese el modo que desea jugar: ");
                             System.out.println("1. Stack ");
-                            System.out.println("2. EmptyHand ");
-                            System.out.println("3. EmptyStack ");
+                          //  System.out.println("2. EmptyHand ");
+                          //  System.out.println("3. EmptyStack ");
                             try{
                                 System.out.println("\nIngrese la opcion: ");
                                 int selectModo = scan.nextInt();
@@ -89,14 +88,14 @@ public class Menu {
                                         modo = "Stack";
                                         controller.crearGame(tPlayers, nMazo, modo);
                                         break;
-                                    case 2:
-                                        modo = "EmptyHand";
-                                        controller.crearGame(tPlayers, nMazo, modo);
-                                        break;
-                                    case 3:
-                                        modo = "EmptyStack";
-                                        controller.crearGame(tPlayers, nMazo, modo);
-                                        break;
+                                 //   case 2:
+                                 //       modo = "EmptyHand";
+                                 //       controller.crearGame(tPlayers, nMazo, modo);
+                                 //       break;
+                                 //   case 3:
+                                 //       modo = "EmptyStack";
+                                 //       controller.crearGame(tPlayers, nMazo, modo);
+                                 //       break;
                                 }
                             } catch (Exception e) {
                                 System.out.println("Solo es valido el ingreso de numeros");
@@ -124,6 +123,10 @@ public class Menu {
                                                 controller.registerGame(name);
                                                 break;
                                             case 2:
+                                                if(controller.getGame().getDobbleGame().getPlayers().size() != controller.getGame().getDobbleGame().getTotalPlayers()){
+                                                    System.out.println("  --- --  Aun no se registran todos los jugadores  -- ---\n");
+                                                    break;
+                                                }
                                                 controller.getGame().getDobbleGame().setEstadoPartida(1);
                                                 break;
                                             case 3:
@@ -170,8 +173,8 @@ public class Menu {
                                         System.out.println("1. spotIt");
                                         System.out.println("2. Pasar de Turno");
                                         System.out.println("3. Finalizar el juego");
-                                       try{
-                                           System.out.println("Ingrese la opcion");
+                                        try{
+                                           System.out.println("Ingrese la opcion: ");
                                            selectPartida = scan.nextInt();
                                            switch (selectPartida){
                                                case 1:

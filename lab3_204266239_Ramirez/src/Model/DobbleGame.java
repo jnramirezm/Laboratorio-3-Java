@@ -134,6 +134,12 @@ public class DobbleGame implements dGame {
         this.modo = modo;
     }
 
+    /**
+     * Metodo que obtiene un boolean, True si el juego es igual el juego entregado.
+     * @param o (Object), que contiene el contenido de un DobbleGame.
+     * @return boolean, dependiendo si los juegos comparados son iguales o no.
+     */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

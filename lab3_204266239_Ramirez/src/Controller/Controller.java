@@ -7,7 +7,8 @@ import java.util.Collections;
 import java.util.Random;
 
 /**
- *
+ * Controller
+ * Clase que simula un controlador, es donde se encuentran todos los metodos para hacer funcionar la aplicacion Game, contiene un Game.
  * @version 11.0.15
  * @autor Juan Ramirez Montero
  */
@@ -19,6 +20,11 @@ public class Controller implements Repository {
         this.game = game;
     }
 
+    /**
+     * Obtiene el game (Game) con el cual se realizan los metodos para que funcione la aplicacion
+     * @return game (Game), aplicacion a la cual se le reazilaran los metodos.
+     */
+
     public Game getGame() {
         return game;
     }
@@ -27,18 +33,33 @@ public class Controller implements Repository {
         this.game = game;
     }
 
+    /**
+     * Obtien el boolean estaRegistrado.
+     * @return estaRegistrado(Boolean) de la aplicacion game.
+     */
+
     public Boolean estaRegistrado(){
         Game game = getGame();
         return game.getEstaRegistrado();
     }
+
+    /**
+     * Modifica el estado de estaRegistrado (Boolean) de la aplicacion game, modificandolo como True.
+     */
+
     public void registradoconexito(){
         Game game = getGame();
         game.setEstaRegistrado(true);
     }
 
+    /**
+     * Metodo que registra a un user en la aplicacion.
+     * @param name (String), nombre del usuario que se registra en la aplicacion.
+     */
+
     public void register(String name){
         Game game = getGame();
-        if(name.equals("CPU")){
+        if(name.contains("CPU")){
             System.out.println("Nombre reservado, no puede registrar este nombre!");
             return;
         }
@@ -61,6 +82,13 @@ public class Controller implements Repository {
         System.out.println("Se ha registrado con Exito!");
     }
 
+    /**
+     * Metodo que obtiene el Score de un Player a traves de su nombre.
+     *
+     * @param name (String), corresponde al nombre de algun jugador de la partida.
+     * @return Integer que corresponde al total de puntos que tiene el jugador al momento de utilizar el metodo.
+     */
+
     public Integer score(String name){
         int score = 0;
         Game game = getGame();
@@ -71,6 +99,14 @@ public class Controller implements Repository {
         }
         return score;
     }
+
+    /**
+     * Metodo que crea un game en la aplicacion, con los parametros dados por el usuario.
+     *
+     * @param n (Integer) corresponde al numero de elementos que tendra una carta
+     * @param nE (Integer) corresponde al numero de jugadores que podra tener el juego.
+     * @param m (String) corresponde al modo de juego que selecciona el usuario.
+     */
 
     public void crearGame(Integer n, Integer nE, String m){
         Game game = getGame();
@@ -94,13 +130,19 @@ public class Controller implements Repository {
         System.out.println("El juego ha sido creado con exito!");
     }
 
+    /**
+     * Metodo que registra a un Player al juego creado.
+     *
+     * @param name (String), corresponde al nombre del jugador que se quiere registrar.
+     */
+
     public void registerGame(String name) {
         Game game = getGame();
         if (game.getDobbleGame().getPlayers().size() >= game.getDobbleGame().getTotalPlayers()) {
             System.out.println("Ya esta el total de jugadores registrados para este juego!.");
             return;
         }
-        if(name.equals("CPU")){
+        if(name.contains("CPU")){
             System.out.println("Nombre reservado, no puede registrar este nombre!");
             return;
         }
@@ -115,6 +157,11 @@ public class Controller implements Repository {
         System.out.println("Se ha registrado el jugador con exito!.");
     }
 
+    /**
+     * Metodo que transforma la Lista de usuarios a String para ser mostrado por pantalla.
+     * @return String, que son los nombres de los usuarios registrados en la aplicacion.
+     */
+
     public String userToString(){
         String salida = new String();
         Game game = getGame();
@@ -125,6 +172,12 @@ public class Controller implements Repository {
         }
         return salida;
     }
+
+    /**
+     * Metodo que crea un String con los contenidos del juegos visibles para el jugador al cual le corresponde el turno,
+     * este string contiene, el nombre del jugador que le corresponde el turno, los puntos del jugador, el turno y las cartas que estan en mesa.
+     * @return String, que es utilizado para mostrar por consola.
+     */
 
     public String VisibletoString(){
         String salida = new String();
@@ -140,6 +193,11 @@ public class Controller implements Repository {
         salida = salida + " ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- \n  ";
         return salida;
     }
+
+    /**
+     * Metodo que retira 2 cartas del cardsSet(Dobble) para dejarlas en mesa.
+     * @param modo (String), corresponde al modo que se utiliza en el juego.
+     */
 
     public void nullGame(String modo) {
         Game game = getGame();
@@ -157,6 +215,11 @@ public class Controller implements Repository {
         }
     }
 
+    /**
+     * Metodo que realiza la accion Pass del jugador, le suma 1 turno al jugador al cual le toca realizar su turno.
+     * @param name (String), nombre del jugador que realiza la accion Pass.
+     */
+
     public void passGame(String name){
         Game game = getGame();
         for(int i = 0; i < getGame().getDobbleGame().getPlayers().size(); i++){
@@ -166,6 +229,13 @@ public class Controller implements Repository {
             }
         }
     }
+
+    /**
+     * Metodo que obtiene el elemento en comun entre 2 cartas.
+     * @param c1 (Card), corresponde a una carta a comparar
+     * @param c2 (Card), corresponde a la segunda carta a comparar.
+     * @return String, que es el elemento en comun entre las 2 cartas a la cual se le hizo la comparacion.
+     */
 
     public String elementComun(Card c1, Card c2){
         String element = new String();
@@ -178,6 +248,18 @@ public class Controller implements Repository {
         }
         return element;
     }
+
+    /**
+     * Metodo que realiza la accion de jugar al juego Dobble, dependiendo del modo de juego.
+     *  Stack : Si el jugador acierta el elemento en comun entre las cartas de la mesa, a este se le agregan las cartas a sus cartas y se le suma puntaje y se le suma el turno
+     *  si este falla en el elemento en comun, se le suma un turno y no se realiza ninguna accion mas.
+     *
+     *   caso CPU: La CPU elige al azar entre 2 elementos en comun para realizar su jugada.
+     *
+     * @param modo (String), corresponde al modo de juego que tiene el juego.
+     * @param element (String), corresponde al elemento que el jugador entrego y se compara si acierta con el elemento en comun entre las cartas de la mesa.
+     * @param name  (String), nombre del jugador que realizo el turno.
+     */
 
     public void playGame(String modo, String element, String name){
         Game game = getGame();
@@ -233,6 +315,11 @@ public class Controller implements Repository {
             }
         }
     }
+
+    /**
+     * Metodo crea un String con el juego finalizado, entregando (si se cumple) el ganador o los jugadores empatados.
+     * @return String , que corresponde al ganador o jugadores empatados.
+     */
 
     public String finishGame(){
         Game game = getGame();

@@ -115,7 +115,13 @@ public class Dobble implements cardsSet{
      */
 
     public Integer findTotalCards(Card carta){
+        if (carta.ElemRep()){
+            return 0;
+        }
         Dobble nD = new Dobble(carta.size(),0);
+        if(!nD.isDobble()){
+            return 0;
+        }
         return nD.size();
     }
 
@@ -180,22 +186,22 @@ public class Dobble implements cardsSet{
 
     public Boolean isDobble(){
         for(int i = 0; i < deck.size(); i++) {
-           if(nthCard(i).ElemRep()){
+           if(nthCard(i).ElemRep()){                                // Carta no tiene elementos en comun
                return false;
            }
            for (int j = 0; j < deck.size(); j++) {
-               if (nthCard(i).equals(nthCard(j))  && i != j){
+               if (nthCard(i).equals(nthCard(j))  && i != j){       // No hay cartas iguales
                    return false;
                }
            }
            for(int p = 0; p < deck.size(); p++){
-               if(nthCard(i).size() != nthCard(p).size()){
+               if(nthCard(i).size() != nthCard(p).size()){          // Todas las cartas tienen la misma cantidad de elementos
                    return false;
                }
            }
            for(int k = 0; k < deck.size(); k++){
                int cont = 0;
-               if(!nthCard(i).equals(nthCard(k))){
+               if(!nthCard(i).equals(nthCard(k))){                  // Todas las cartas tienen por lo menos 1 elemento en comun.
                    for(int v = 0; v < nthCard(i).size(); v++){
                        for(int f = 0; f < nthCard(k).size(); f++){
                            if(nthCard(i).get(v).equals(nthCard(k).get(f))){
@@ -221,6 +227,9 @@ public class Dobble implements cardsSet{
      */
 
     public Dobble missingCards( Dobble cartas ){
+        if (!cartas.isDobble()){
+            return new Dobble();
+        }
         int n = cartas.nthCard(0).size();
         int ndobble = nthCard(0).size();
         int tdobble = deck.size();
@@ -241,6 +250,12 @@ public class Dobble implements cardsSet{
         }
         return deck2;
     }
+
+    /**
+     * Metodo que obtiene un boolean entre la comparacion de 2 Dobble.
+     * @param o (Object) que posee el contenido de un Dobble.
+     * @return boolean, dependiendo del resultado de la comparacion entre los 2 Dooble.
+     */
 
     @Override
     public boolean equals(Object o) {
