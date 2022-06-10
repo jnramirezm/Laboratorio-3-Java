@@ -53,6 +53,35 @@ public class Controller implements Repository {
     }
 
     /**
+     * Metodo que modifica el estado de la partida del juego DObbleGame.
+     * @param n (Integer), corresponde al estado de la partida al cual se quiere modificar.
+     */
+
+    public void setEstadoP(Integer n){
+        Game game = getGame();
+        game.getDobbleGame().setEstadoPartida(n);
+    }
+
+    /**
+     * Metodo que obtiene el modo de juego de un juego (DobbleGmame)
+     * @return String que corresponde al modo de juego.
+     */
+    public String getModoGame(){
+        Game game = getGame();
+        return game.getDobbleGame().getModo();
+    }
+
+    /**
+     * Metodo que obtiene el estado del juego (DobbleGame)
+     * @return Integer, que corresponde al estado del juego.
+     */
+
+    public Integer getEstadoGame(){
+        Game game = getGame();
+        return game.getDobbleGame().getEstadoPartida();
+    }
+
+    /**
      * Metodo que registra a un user en la aplicacion.
      * @param name (String), nombre del usuario que se registra en la aplicacion.
      */
@@ -192,6 +221,31 @@ public class Controller implements Repository {
         salida = salida + "\n      ---      ---- Cartas en Mesa ----      ---      \n" + "          " + game.getDobbleGame().getMesa().mesatoString() + "\n";
         salida = salida + " ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- \n  ";
         return salida;
+    }
+
+    /**
+     * Metodo que crea un agrega una Cpu al juego y comienza el juego.
+     */
+    public void createPlayervCpu(){
+        Game game = getGame();
+        game.getDobbleGame().setTotalPlayers(2);
+        Player cpu = new Player("CPU");
+        game.getDobbleGame().getPlayers().add(cpu);
+        game.getDobbleGame().setEstadoPartida(1);
+    }
+
+    /**
+     * Metodo que modifica el juego, anadiendo 2 CPU al juego, para que empiezen una partida jugando entre ellas.
+     */
+    public void createCpuvCpu(){
+        Game game = getGame();
+        game.getDobbleGame().setTotalPlayers(2);
+        game.getDobbleGame().setPlayers(new ArrayList<Player>());
+        Player cpu1 = new Player("CPU");
+        Player cpu2 = new Player("CPU1");
+        game.getDobbleGame().getPlayers().add(cpu1);
+        game.getDobbleGame().getPlayers().add(cpu2);
+        game.getDobbleGame().setEstadoPartida(1);
     }
 
     /**

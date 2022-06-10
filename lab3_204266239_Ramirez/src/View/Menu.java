@@ -127,22 +127,13 @@ public class Menu {
                                                     System.out.println("  --- --  Aun no se registran todos los jugadores  -- ---\n");
                                                     break;
                                                 }
-                                                controller.getGame().getDobbleGame().setEstadoPartida(1);
+                                                controller.setEstadoP(1);
                                                 break;
                                             case 3:
-                                                controller.getGame().getDobbleGame().setTotalPlayers(2);
-                                                Player cpu = new Player("CPU");
-                                                controller.getGame().getDobbleGame().getPlayers().add(cpu);
-                                                controller.getGame().getDobbleGame().setEstadoPartida(1);
+                                                controller.createPlayervCpu();
                                                 break;
                                             case 4:
-                                                controller.getGame().getDobbleGame().setTotalPlayers(2);
-                                                controller.getGame().getDobbleGame().setPlayers(new ArrayList<Player>());
-                                                Player cpu1 = new Player("CPU");
-                                                Player cpu2 = new Player("CPU1");
-                                                controller.getGame().getDobbleGame().getPlayers().add(cpu1);
-                                                controller.getGame().getDobbleGame().getPlayers().add(cpu2);
-                                                controller.getGame().getDobbleGame().setEstadoPartida(1);
+                                                controller.createCpuvCpu();
                                                 break;
                                             case 5:
                                                 controller.getGame().setGameCreado(false);
@@ -154,17 +145,17 @@ public class Menu {
                                         scan.next();
                                     }
                                 }
-                                if (controller.getGame().getDobbleGame().getEstadoPartida() == 1){
+                                if (controller.getEstadoGame() == 1){
                                     while(!salirPartida){
                                         int selectPartida;
-                                        controller.nullGame(controller.getGame().getDobbleGame().getModo());
-                                        if (controller.getGame().getDobbleGame().getEstadoPartida() == 2){
+                                        controller.nullGame(controller.getModoGame());
+                                        if (controller.getEstadoGame() == 2){
                                             break;
                                         }
                                         if(controller.getGame().getDobbleGame().whoseTurnIsIt().equals("CPU") || controller.getGame().getDobbleGame().whoseTurnIsIt().equals("CPU1") ){
                                             System.out.println("------------------- Partida en Progreso -------------------");
                                             System.out.println(controller.VisibletoString());
-                                            controller.playGame(controller.getGame().getDobbleGame().getModo(),"", controller.getGame().getDobbleGame().whoseTurnIsIt());
+                                            controller.playGame(controller.getModoGame(),"", controller.getGame().getDobbleGame().whoseTurnIsIt());
                                             break;
                                         }
                                         System.out.println("------------------- Partida en Progreso -------------------");
@@ -181,7 +172,7 @@ public class Menu {
                                                    System.out.println("Ingrese el elemento en comun entre las cartas");
                                                    scan.nextLine();
                                                    String element = scan.nextLine();
-                                                   controller.playGame(controller.getGame().getDobbleGame().getModo(), element, controller.getGame().getDobbleGame().whoseTurnIsIt());
+                                                   controller.playGame(controller.getModoGame(), element, controller.getGame().getDobbleGame().whoseTurnIsIt());
                                                    break;
                                                case 2:
                                                    controller.passGame(controller.getGame().getDobbleGame().whoseTurnIsIt());
@@ -198,7 +189,7 @@ public class Menu {
                                         break;
                                     }
                                 }
-                                if(controller.getGame().getDobbleGame().getEstadoPartida() == 2) {
+                                if(controller.getEstadoGame() == 2) {
                                     System.out.println(" ------------------- Partida Finalizada -------------------");
                                     System.out.println(controller.finishGame());
                                     System.out.println("1. Volver al Menu");

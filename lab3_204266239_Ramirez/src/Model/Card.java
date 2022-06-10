@@ -69,6 +69,7 @@ public class Card implements Elementos {
      * obtiene el total de elementos que posee la carta (Integer)
      * @return (Integer) total de elementos de la carta.
      */
+
     public Integer size(){
         return elements.size();
     }
