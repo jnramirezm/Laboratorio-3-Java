@@ -82,6 +82,74 @@ public class Controller implements Repository {
     }
 
     /**
+     *  Obtiene al User que esta registrado en la aplicacion
+     * @return String, corresponde al nombre del usuaruio.
+     */
+
+    public String getUserRegistrado(){
+        Game game = getGame();
+        return  game.getRegistrado();
+    }
+
+    /**
+     * Modifica al  usuario Registrado con el usuario dado.
+     * @param name (String), corresponde el nombre al cual se quiere modificar el nuevo registrado.
+     */
+
+    public void setUserR(String name){
+        Game game = getGame();
+        game.setRegistrado(name);
+    }
+
+    /**
+     * Obtiene al usuario que esta en la posicion n de la Lista.
+     * @param n (Integer), corresponde al index que se quiere encontrar en la lista
+     * @return (String) corresponde a un usuario registrado en la aplicacion.
+     */
+    public String getUsern(Integer n){
+        Game game = getGame();
+        return game.getUsuarios().get(n);
+    }
+
+    /**
+     * Modifica el boolean GameCreado por el boolean dado por parametro
+     * @param b (boolean), corresponde al boolean por el cual se quiere modifciar el gameCreado.
+     */
+
+    public void setGameC(boolean b){
+        Game game = getGame();
+        game.setGameCreado(b);
+    }
+
+    /**
+     * Obtiene la cantidad de jugadores que estan registrados en la partida
+     * @return Integer, corresponde al total de jugadores registrados en el momento
+     */
+
+    public Integer sizePlayers(){
+        Game game = getGame();
+        return game.getDobbleGame().getPlayers().size();
+    }
+
+    /**
+     * Obtiene el Total de jugadores que pueden registrarse en una partida
+     * @return Integer, que corresponde al total de jugadores que pueden registrarse en un juego
+     */
+
+    public  Integer totalPlayers(){
+        Game game = getGame();
+        return game.getDobbleGame().getTotalPlayers();
+    }
+    /**
+     * Metodo que obtiene el nombre del jugador que le corresponde el turno
+     * @return String, corresponde al nombre del jugador del turno actual.
+     */
+    public String turnoJugador(){
+        Game game = getGame();
+        return game.getDobbleGame().whoseTurnIsIt();
+    }
+
+    /**
      * Metodo que registra a un user en la aplicacion.
      * @param name (String), nombre del usuario que se registra en la aplicacion.
      */

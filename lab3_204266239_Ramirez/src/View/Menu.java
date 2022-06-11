@@ -2,8 +2,6 @@ package View;
 
 import java.util.ArrayList;
 import Controller.Controller;
-import Model.Player;
-
 import java.util.Scanner;
 
 public class Menu {
@@ -56,7 +54,7 @@ public class Menu {
             else{
                 int selectRegister;
                 System.out.println("    ---    DOBBLE    ---   ");
-                System.out.println("Usted esta registrado con el nombre: " + controller.getGame().getRegistrado());
+                System.out.println("Usted esta registrado con el nombre: " + controller.getUserRegistrado());
                 System.out.println("1. Crear Juego");
                 System.out.println("2. Registrar nuevo usuario");
                 System.out.println("3. Cambiar de usuario");
@@ -103,9 +101,9 @@ public class Menu {
                             }
                             while(controller.getGame().getGameCreado()) {
                                 boolean salirPartida = false;
-                                System.out.println(" --------------  Juego creado por " + controller.getGame().getRegistrado() + "  -------------- ");
-                                System.out.println("                Jugadores en partida  " + controller.getGame().getDobbleGame().getPlayers().size() + "/" + controller.getGame().getDobbleGame().getTotalPlayers() + "\n");
-                                if (controller.getGame().getDobbleGame().getEstadoPartida() == 0) {
+                                System.out.println(" --------------  Juego creado por " + controller.getUserRegistrado() + "  -------------- ");
+                                System.out.println("                Jugadores en partida  " + controller.sizePlayers() + "/" + controller.totalPlayers() + "\n");
+                                if (controller.getEstadoGame() == 0) {
                                     System.out.println("1. Anadir jugador al juego");
                                     System.out.println("2. Empezar juego");
                                     System.out.println("3. Jugar vs la CPU");
@@ -123,7 +121,7 @@ public class Menu {
                                                 controller.registerGame(name);
                                                 break;
                                             case 2:
-                                                if(controller.getGame().getDobbleGame().getPlayers().size() != controller.getGame().getDobbleGame().getTotalPlayers()){
+                                                if(controller.sizePlayers() != controller.totalPlayers()){
                                                     System.out.println("  --- --  Aun no se registran todos los jugadores  -- ---\n");
                                                     break;
                                                 }
@@ -136,7 +134,7 @@ public class Menu {
                                                 controller.createCpuvCpu();
                                                 break;
                                             case 5:
-                                                controller.getGame().setGameCreado(false);
+                                                controller.setGameC(false);
                                                 break;
                                         }
 
@@ -152,10 +150,10 @@ public class Menu {
                                         if (controller.getEstadoGame() == 2){
                                             break;
                                         }
-                                        if(controller.getGame().getDobbleGame().whoseTurnIsIt().equals("CPU") || controller.getGame().getDobbleGame().whoseTurnIsIt().equals("CPU1") ){
+                                        if(controller.turnoJugador().equals("CPU") || controller.turnoJugador().equals("CPU1") ){
                                             System.out.println("------------------- Partida en Progreso -------------------");
                                             System.out.println(controller.VisibletoString());
-                                            controller.playGame(controller.getModoGame(),"", controller.getGame().getDobbleGame().whoseTurnIsIt());
+                                            controller.playGame(controller.getModoGame(),"", controller.turnoJugador());
                                             break;
                                         }
                                         System.out.println("------------------- Partida en Progreso -------------------");
@@ -172,14 +170,14 @@ public class Menu {
                                                    System.out.println("Ingrese el elemento en comun entre las cartas");
                                                    scan.nextLine();
                                                    String element = scan.nextLine();
-                                                   controller.playGame(controller.getModoGame(), element, controller.getGame().getDobbleGame().whoseTurnIsIt());
+                                                   controller.playGame(controller.getModoGame(), element, controller.turnoJugador());
                                                    break;
                                                case 2:
-                                                   controller.passGame(controller.getGame().getDobbleGame().whoseTurnIsIt());
+                                                   controller.passGame(controller.turnoJugador());
                                                    System.out.println("\n          -------- Ha pasado de turno!  --------\n");
                                                    break;
                                                case 3:
-                                                   controller.getGame().getDobbleGame().setEstadoPartida(2);
+                                                   controller.setEstadoP(2);
                                                    break;
                                            }
                                        } catch(Exception e){
@@ -227,7 +225,7 @@ public class Menu {
                             System.out.println(controller.userToString());
                             System.out.println("Ingrese el numero del usuario a cambiar.");
                             nUser = scan.nextInt();
-                            controller.getGame().setRegistrado(controller.getGame().getUsuarios().get(nUser-1));
+                            controller.setUserR(controller.getUsern(nUser-1));
                             break;
                         case 4:
                             salir = true;
