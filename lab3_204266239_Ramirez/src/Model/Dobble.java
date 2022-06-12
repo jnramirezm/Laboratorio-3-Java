@@ -102,23 +102,19 @@ public class Dobble implements cardsSet{
      */
 
     public Card nthCard(Integer i){
-        if( i < 0 ){
+        if( i < 0 || i >= deck.size() ){
             return new Card();
         }
         return deck.get(i);
     }
 
     /**
-     * Entrega el total de Cartas que pueden existir en un mazo, dada una carta de muestra.
-     * @param carta (Card). Corresponde a una carta.
-     * @return (Integer) corresponde al total de cartas de un deck, el cual se obtuvo de una carta de muestra.
+     * Entrega el total de Cartas que pueden existir en un mazo
+     * @return (Integer) corresponde al total de cartas de un deck.
      */
 
-    public Integer findTotalCards(Card carta){
-        if (carta.ElemRep()){
-            return 0;
-        }
-        Dobble nD = new Dobble(carta.size(),0);
+    public Integer findTotalCards(){
+        Dobble nD = new Dobble(nthCard(0).size(),0);
         if(!nD.isDobble()){
             return 0;
         }

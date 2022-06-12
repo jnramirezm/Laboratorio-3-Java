@@ -19,12 +19,11 @@ public interface cardsSet {
     public Card nthCard(Integer n);
 
     /**
-     * Entrega el total de Cartas que pueden existir en un mazo, dada una carta de muestra.
-     * @param card (Card). Corresponde a una carta.
-     * @return (Integer) corresponde al total de cartas de un deck, el cual se obtuvo de una carta de muestra.
+     * Entrega el total de Cartas que pueden existir en un mazo.
+     * @return (Integer) corresponde al total de cartas de un deck.
      */
 
-    public Integer findTotalCards(Card card);
+    public Integer findTotalCards();
 
     /**
      * Entrega las cartas faltantes de un deck, al cual se le entregan una cantidad de cartas.
