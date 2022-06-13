@@ -4,7 +4,6 @@ import Interface.cardsSet;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Objects;
 
 /**
  * Clase que simula un Mazo de tipo Dobble (Que tiene un tipo de caracteristicas especiales para el juego)
@@ -68,8 +67,8 @@ public class Dobble implements cardsSet{
     }
 
     /**
-     *
-     * @param deck
+     * Modifica el deck (Lista de cartas) del dobble.
+     * @param deck (Lista de cartas), corresponde al deck al cual se quiere llegar al modificar.
      */
 
     public void setDeck(ArrayList<Card> deck) {
@@ -228,9 +227,10 @@ public class Dobble implements cardsSet{
         }
         int n = cartas.nthCard(0).size();
         int ndobble = nthCard(0).size();
-        int tdobble = deck.size();
-        Dobble deck3 = new Dobble(ndobble, tdobble);
+        Dobble deck3 = new Dobble(ndobble, 0 );
         Dobble deck2 = new Dobble();
+        System.out.println(deck3);
+        System.out.println(cartas);
         if(n == deck3.nthCard(0).size()){
             for(int i = 0; i < deck3.size(); i++){
                 int cont = 0;
@@ -238,7 +238,7 @@ public class Dobble implements cardsSet{
                     if(deck3.nthCard(i).equals(cartas.nthCard(j))){
                         cont = cont + 1;
                     }
-                    if(cont == 0 && j == cartas.size()-1){
+                    if(cont == 0 && j == cartas.nthCard(0).size()){
                         deck2.anadir(deck3.nthCard(i));
                     }
                 }
@@ -270,11 +270,6 @@ public class Dobble implements cardsSet{
             }
         }
         return cont == deck.size();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(deck);
     }
 }
 

@@ -1,9 +1,6 @@
 package Model;
 import Interface.InterfPlayer;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
 /**
  * Clase que simula a un jugador, este contiene un nombre (String), turno y score (Integers) y un mazo de cartas (Dobble)
  * @version 11.0.15
@@ -31,6 +28,11 @@ public class Player implements InterfPlayer {
     public String getName() {
         return name;
     }
+
+    /**
+     * Modifica el nombre del jugador
+     * @param name (String), corresponde al nombre del jugador
+     */
 
     public void setName(String name) {
         this.name = name;
@@ -79,8 +81,10 @@ public class Player implements InterfPlayer {
     public Dobble getCards() {
         return cards;
     }
+
     /**
-     *
+     * Modifica las cartas de un jugador (Player)
+     * @param cards (Dobble), cartas a modificar.
      */
 
     public void setCards(Dobble cards) {
@@ -98,12 +102,7 @@ public class Player implements InterfPlayer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Player player = (Player) o;
-        return Objects.equals(name, player.name) && Objects.equals(turn, player.turn) && Objects.equals(score, player.score) && cards.equals(player.cards);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, turn, score, cards);
+        return name.equals( player.name) && (turn == player.turn) && (score == player.score) && cards.equals(player.cards);
     }
 
     /**

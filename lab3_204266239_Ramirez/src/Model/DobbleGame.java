@@ -40,6 +40,11 @@ public class DobbleGame implements dGame {
         return cardsSet;
     }
 
+    /**
+     * Modifica el cardsSet (Dobble) del dobbleGame.
+     * @param cardsSet (Dobble), corresponde al mazo Dobble.
+     */
+
     public void setCardsSet(Dobble cardsSet) {
         this.cardsSet = cardsSet;
     }
@@ -126,8 +131,8 @@ public class DobbleGame implements dGame {
     }
 
     /**
-     *
-     * @param
+     * Modifica el modo de juego del dobbleGame
+     * @param modo (String), corresponde al modo de juego que se quiere modificar.
      */
 
     public void setModo(String modo) {
@@ -154,11 +159,6 @@ public class DobbleGame implements dGame {
             }
         }
         return cardsSet.equals(dbGame.cardsSet) && (contePlayers == getPlayers().size()) && (getPlayers().size() == dbGame.getPlayers().size()) && Objects.equals(totalPlayers, dbGame.totalPlayers) && Objects.equals(estadoPartida, dbGame.estadoPartida) && mesa.equals(dbGame.mesa) && Objects.equals(modo, dbGame.modo);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cardsSet, players, totalPlayers, estadoPartida, mesa, modo);
     }
 
     /**
@@ -198,13 +198,13 @@ public class DobbleGame implements dGame {
         String salida = new String();
         Integer ePartida = getEstadoPartida();
         if(ePartida == 0){
-            salida = "La partida se encuentra en proceso de registro de jugadores\\n\"";
+            salida = "La partida se encuentra en proceso de registro de jugadores\n";
         }
         if(ePartida == 1){
-            salida = "Partida en progreso";
+            salida = "Partida en progreso\n";
         }
         if(ePartida == 2){
-            salida = "Partida finalizada";
+            salida = "Partida finalizada\n";
         }
         return salida;
     }
@@ -217,7 +217,7 @@ public class DobbleGame implements dGame {
     @Override
     public String toString() {
         String salida = new String();
-        salida = "  -------- Juego --------\n" + "Modo de juego: " + getModo() +"\nCapacidad de jugadores : " + getTotalPlayers()  +  "\nMazo en juego = " + getCardsSet() +"\n";
+        salida = "  -------- Juego --------\n" + "Modo de juego: " + getModo() +"\nCapacidad de jugadores : " + getTotalPlayers()  +  "\nMazo en juego = \n" + getCardsSet() +"\n";
         String status = status();
         salida = salida + status;
         for(int i = 0; i < getPlayers().size(); i++) {

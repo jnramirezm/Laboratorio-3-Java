@@ -29,6 +29,11 @@ public class Controller implements Repository {
         return game;
     }
 
+    /**
+     * Modifica el game (Game) con el game dado por parametro
+     * @param game (Game), corresponde el game al cual se quiere llegar al modificar.
+     */
+
     public void setGame(Game game) {
         this.game = game;
     }
@@ -440,6 +445,7 @@ public class Controller implements Repository {
 
     /**
      * Metodo crea un String con el juego finalizado, entregando (si se cumple) el ganador o los jugadores empatados.
+     * Verifica a los ganadores del juego o si han empatado comparando el puntaje, hay mas de 1 jugador con el maximo puntaje, entonces es empate.
      * @return String , que corresponde al ganador o jugadores empatados.
      */
 

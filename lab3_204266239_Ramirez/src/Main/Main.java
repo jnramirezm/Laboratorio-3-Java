@@ -4,15 +4,13 @@ import Model.*;
 import Controller.Controller;
 import View.Menu;
 
-import java.util.ArrayList;
-
 public class Main {
     public static void main(String[] args){
-         Game game = new Game();
-         Controller controller = new Controller(game);
-         Menu menu = new Menu(controller);
-         menu.menu();
-         return;
+        Game game = new Game();
+        Controller controller = new Controller(game);
+        Menu menu = new Menu(controller);
+        menu.menu();
+        return;
     }
 }
 
@@ -35,7 +33,7 @@ public class Main {
     System.out.println(carta1.ElemRep());
     System.out.println(carta1);
 
-    Dobble d1 = new Dobble(4,5);
+     Dobble d1 = new Dobble(4,5);
         Dobble d2 = new Dobble(4,0);
         Dobble d3 = new Dobble(5,0);
 
@@ -47,6 +45,10 @@ public class Main {
         System.out.println(d1.isDobble());
         System.out.println(d3.isDobble());
 
+        System.out.println(d1.toString());
 
+        DobbleGame g1 = new DobbleGame(3,4,"Stack");
+        System.out.println(g1);
 
+        Otros metodos se pueden probar dentro del menu--
 */

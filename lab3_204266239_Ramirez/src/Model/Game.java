@@ -61,6 +61,11 @@ public class Game {
         return usuarios;
     }
 
+    /**
+     * Modifica la lista de usuarois (Strings) del game.
+     * @param usuarios (Lista de strings), corresponde a una lista de strings con los nombre de los usuarios.
+     */
+
     public void setUsuarios(ArrayList<String> usuarios) {
         this.usuarios = usuarios;
     }

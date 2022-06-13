@@ -3,7 +3,6 @@ package Model;
 import Interface.Elementos;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Collections;
 
 /**
@@ -125,10 +124,5 @@ public class Card implements Elementos {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(elements);
     }
 }
